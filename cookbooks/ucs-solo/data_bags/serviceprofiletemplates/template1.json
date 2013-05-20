@@ -1,0 +1,19 @@
+{
+	"id": "template1",
+	"service_profile_template_name": "hadoop-Template-1",
+	"service_profile_template_boot_policy": "PXEBoot",
+	"service_profile_template_host_fw_policy": "hadoop-fw",
+	"service_profile_template_mgmt_fw_policy": "hadoop-fw",
+	"service_profile_template_uuid_pool": "hadoop-uuid",
+	"service_profile_template_vnics_a": "vNIC-A",
+	"service_profile_template_vnic_a_template": "hadoop-A",
+	"service_profile_template_vnics_b": "vNIC-B",
+	"service_profile_template_vnic_b_template": "hadoop-B",
+	"service_profile_template_wwnn_pool": "hadoop-wwnn",
+	"service_profile_template_vhba_a": "vHBA-A",
+	"service_profile_template_vhba_a_template": "hadoop-A",
+	"service_profile_template_vhba_b": "vHBA-B",
+	"service_profile_template_vhba_b_template": "hadoop-B",
+	"org": "IT"
+
+}

@@ -1,0 +1,8 @@
+{
+    "id":"FIA",
+    "name":"PortChannel30",
+    "port_ids":"31,32",
+    "port_channel_id":"30",
+    "switch":"A",
+    "slot":"1"
+}

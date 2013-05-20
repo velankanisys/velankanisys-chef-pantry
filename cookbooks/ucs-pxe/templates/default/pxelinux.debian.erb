@@ -1,0 +1,6 @@
+default linux
+
+label linux
+  kernel debian-installer/amd64/linux
+  append auto=true priority=critical preseed/locale=en_US kbd-chooser/method=us vga=normal initrd=debian-installer/amd64/initrd.gz DEBCONF_DEBUG=5 --auto url=http://<%= @node[:pxe][:dhcpd][:next_server] %>/debian/preseed.debian.cfg interface=eth0
+

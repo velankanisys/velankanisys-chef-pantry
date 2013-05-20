@@ -1,0 +1,29 @@
+{
+  "name": "automator",
+  "description": "Installs/Configures automator with chef-solo",
+  "long_description": "Description\n===========\n\nThis cookbook that sets up an Automator node (Orchestration) or a VM in a laptop based on Debian Squeeze. The orchestration and command dispatch is \npowered by Rundeck with chef-solo and the Velankani Chef Cookbooks. \n\nRequirements\n============\n\nA Debian Squeeze (6.0.6) node either using ucx-pxe or a manual setup.\n\n\nAttributes\n==========\n\n\t#Current supported platform - Debian Squeeze\n\t#Orchestrator\n\tdefault[:automator][:orchestrator][:dist] = \"rundeck-1.4.4\"\n\tdefault[:automator][:orchestrator][:path] = \"https://s3.amazonaws.com/velankanidownloads/rundeck-1.4.4.deb\"\n\tdefault[:automator][:orchestrator][:cookbooks_path] = \"https://github.com/velankanisys/chef-cookbooks/archive/master.tar.gz\"\n\tdefault[:automator][:orchestrator][:cookbooks] = \"velankanisys-chef-cookbooks\"\n\tdefault[:automator][:orchestrator][:data_bags] = \"/etc/chef/chef-cookbooks-master/ucs-solo/data_bags\"\n\nUsage\n=====\n\n\tknife bootstrap <node name> -x root -P <password>\n\tknife node run_list add <node_name> recipe[automator::builder]\n\tknife ssh name:<node name> -x root -P <password> \"chef-client\"\n\n\tLogin to rundeck using http://<node name>:4440 with username: admin password: admin\n\nLicense\n======\n\n\n\tAuthor:: Velankani Engineering Team eng@velankani.net\n\n\tCopyright:: Copyright (c) 2012 Velankani Information Systems, Inc.\n\tLicense:: Apache License, Version 2.0\n\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.\n\n",
+  "maintainer": "Velankani Information Systems, Inc",
+  "maintainer_email": "eng@velankani.net",
+  "license": "All rights reserved",
+  "platforms": {
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.0.1"
+}

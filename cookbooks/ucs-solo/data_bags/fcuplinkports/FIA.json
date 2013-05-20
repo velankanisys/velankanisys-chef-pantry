@@ -1,0 +1,7 @@
+{
+    "id":"FIA",
+    "port_range_start":"1",
+    "port_range_end":"4",
+    "switch":"A",
+    "slot":"2"
+}

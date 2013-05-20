@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<joblist> 
+  <job> 
+    <id>a502db44-5843-4736-98df-c52f0ea78247</id>  
+    <loglevel>VERBOSE</loglevel>  
+    <sequence keepgoing="false" strategy="step-first"> 
+      <command> 
+        <exec>chef-solo -j /etc/chef/initial.json</exec> 
+      </command> 
+    </sequence>  
+    <description>Setup initial UCS environment based on a predefined workflow using the ucs-solo cookbook</description>  
+    <name>initial</name>  
+    <context> 
+      <project>ucs</project> 
+    </context>  
+    <uuid>a502db44-5843-4736-98df-c52f0ea78247</uuid>  
+    <group>setup</group> 
+  </job>  
+  <job> 
+    <id>72cf72d0-410c-4697-81a9-4a6e4d913cbf</id>  
+    <loglevel>VERBOSE</loglevel>  
+    <sequence keepgoing="false" strategy="step-first"> 
+      <command> 
+        <exec>chef-solo -j /etc/chef/update_boot.json</exec> 
+      </command> 
+    </sequence>  
+    <description>Update UCS boot-policy to reboot Service Profiles to boot from disk</description>  
+    <name>update-boot-policy</name>  
+    <context> 
+      <project>ucs</project> 
+    </context>  
+    <uuid>72cf72d0-410c-4697-81a9-4a6e4d913cbf</uuid>  
+    <group>setup</group> 
+  </job> 
+</joblist>

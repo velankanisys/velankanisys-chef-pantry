@@ -1,0 +1,13 @@
+{
+    "name": "hadoop-datanode",
+    "chef_type": "role",
+    "description": "Hadoop Datanode",
+    "run_list": [
+    	"recipe[hadoop-hdp::default]",
+        "recipe[hadoop-hdp::datanode]"
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}

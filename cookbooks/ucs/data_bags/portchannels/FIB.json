@@ -1,0 +1,8 @@
+{
+    "id":"FIB",
+    "name":"PortChannel31",
+    "port_ids":"31,32",
+    "port_channel_id":"31",
+    "switch":"B",
+    "slot":"1"
+}

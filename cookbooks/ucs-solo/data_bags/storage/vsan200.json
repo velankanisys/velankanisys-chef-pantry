@@ -1,0 +1,6 @@
+{
+	"id": "vsan200",
+	"vsan_id": "200",
+	"vsan_fcoe_id": "400",
+	"vsan_name": "vsan200"
+}

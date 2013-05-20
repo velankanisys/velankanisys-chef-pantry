@@ -1,0 +1,13 @@
+{
+    "name": "hadoop-tasktracker",
+    "chef_type": "role",
+    "description": "Hadoop Tasktracker",
+    "run_list": [
+    	"recipe[hadoop-hdp::default]",
+        "recipe[hadoop-hdp::tasktracker]"
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}

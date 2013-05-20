@@ -1,0 +1,12 @@
+{
+	"id": "manager1",
+	"service_profile": {
+		"service_profile_boot_policy": "PXEBoot",
+		"service_profile_host_fw_policy": "hadoop-fw",
+		"service_profile_mgmt_fw_policy": "hadoop-fw",
+		"service_profile_uuid_pool": "hadoop-uuid",
+		"service_profile_template_to_bind": "hadoop-Template-1",
+		"service_profile_server_pool": "hadoop",
+		"org": "IT"
+	} 
+}

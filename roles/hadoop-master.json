@@ -1,0 +1,13 @@
+{
+    "name": "hadoop-master",
+    "chef_type": "role",
+    "description": "Hadoop Master",
+    "run_list": [
+        "role[hadoop-namenode]",
+	"role[hadoop-jobtracker]"
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}

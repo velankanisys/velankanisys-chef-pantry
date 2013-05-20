@@ -1,0 +1,42 @@
+ddns-update-style none;
+default-lease-time 600;
+option domain-name-servers <%= @node[:metalprov][:dhcpd][:dns_server] %>;
+max-lease-time 7200;
+allow booting;
+allow bootp;
+
+#class "pxeclients" {
+#  match if substring(option vendor-class-identifier, 0, 9) = "PXEClient";
+#  next-server <%= @node[:metalprov][:dhcpd][:next_server] %>;
+#  filename = "<%= @node[:metalprov][:dhcpd][:filename] %>";
+#
+#}
+#
+#subnet <%= @node[:metalprov][:dhcpd][:subnet] %> netmask <%= @node[:metalprov][:dhcpd][:subnet_mask] %> {
+#  pool {
+#    allow members of "pxeclients";
+#    range <%= @node[:metalprov][:dhcpd][:host_range] %>;
+#  }
+#}
+
+subnet <%= @node[:metalprov][:dhcpd][:subnet] %> netmask <%= @node[:metalprov][:dhcpd][:subnet_mask] %> {
+  range <%= @node[:metalprov][:dhcpd][:host_range] %>;
+  option subnet-mask <%= @node[:metalprov][:dhcpd][:subnet_mask] %>;
+  option broadcast-address <%= @node[:metalprov][:dhcpd][:broadcast] %>;
+  option routers <%= @node[:metalprov][:dhcpd][:gateway] %>;
+  if exists user-class and option user-class = "iPXE" {
+      filename "razor.ipxe"; # we are in an iPXE kernel and load static script
+  } else {
+      filename "undionly.kpxe"; # we are in burned in PXE and load iPXE kernel
+  }
+  next-server <%= @node[:metalprov][:dhcpd][:next_server] %>;
+}
+
+host hadoop01 {
+       hardware ethernet 00:25:B5:00:00:1C;
+       fixed-address 192.168.73.196;
+       option routers 192.168.73.2;
+       option subnet-mask 255.255.255.0;
+       option broadcast-address 192.168.73.255;
+       option host-name "hadoop01";
+}

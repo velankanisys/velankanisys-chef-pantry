@@ -1,0 +1,20 @@
+{
+    "name": "hadoop-hiveserver2",
+    "chef_type": "role",
+    "description": "Hadoop HiveServer2",
+    "run_list": [
+    	"recipe[mysql::server]",
+        "recipe[database::mysql]",
+        "recipe[hadoop-hdp-hiveserver2]"
+
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+                    "mysql": {
+            "server_root_password": "a1ce32bb21f4e5feb627dd2e43f60af0",
+            "server_repl_password": "a1ce32bb21f4e5feb627dd2e43f60af0",
+            "server_debian_password": "a1ce32bb21f4e5feb627dd2e43f60af0"
+            }
+    }
+}

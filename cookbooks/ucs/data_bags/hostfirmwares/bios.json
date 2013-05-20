@@ -1,0 +1,11 @@
+{
+    "id":"bios",
+    "host_firmware_pkg_name":"hadoop-fw",
+    "host_firmware_pkg_description":"hadoop Firmware",
+    "org":"IT",
+    "hardware_model":"B230-BASE-M2",
+    "hardware_type":"blade-bios",
+    "hardware_vendor":"Cisco Systems, Inc.",
+    "firmware_version":"B230.2.0.1c.0.100520111716"
+}
+

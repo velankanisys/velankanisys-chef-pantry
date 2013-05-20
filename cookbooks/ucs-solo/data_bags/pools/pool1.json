@@ -1,0 +1,35 @@
+{
+    "id":"pool1",
+    "mac":{
+        "name":"hadoop-mac",
+        "start":"00:25:B5:00:00:00",
+        "end":"00:25:B5:00:00:1F",
+        "org":"IT"
+    },
+    "uuid":{
+        "name":"hadoop-uuid",
+        "from":"0000-000000000001",
+        "to":"0000-000000000020",
+        "org":"IT"
+    },
+    "wwpn":{
+        "name":"hadoop-wwpn",
+        "from":"20:00:00:25:B5:01:00:00",
+        "to":"20:00:00:25:B5:01:00:3F",
+        "org":"IT"
+    },
+    "wwnn":{
+        "name":"hadoop-wwnn",
+        "from":"20:00:00:25:B5:00:00:00",
+        "to":"20:00:00:25:B5:00:00:3F",
+        "org":"IT"
+    },
+    "server": {
+        "server_pool_name": "hadoop",
+        "server_pool_description": "Pool1 for hadoop Hosts",
+        "server_pool_chassis_ids": "1,2,3,4",
+        "server_pool_blades": "1,2,3,5",
+        "org": "IT"
+
+    }
+}

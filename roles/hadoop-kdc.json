@@ -1,0 +1,13 @@
+{
+    "name": "hadoop-kdc",
+    "chef_type": "role",
+    "description": "Hadoop KDC",
+    "run_list": [
+    	"recipe[kerberos::kerberos_server]"
+
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "id": "serviceprofile2",
+    "mac_address": "00:25:B5:00:00:9F",
+    "ip": "10.10.143.3",
+    "gateway": "10.10.143.1",
+    "mask": "255.255.255.0",
+    "broadcast": "10.10.143.255",
+    "host_name": "esxi2"
+
+}

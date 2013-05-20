@@ -1,0 +1,15 @@
+default install
+prompt   1
+timeout  30
+
+# Install i386 Linux
+label install
+  kernel linux64
+  append initrd=initrd64 splash=silent vga=0x314 showopts install=http://<%= @node[:pxe][:dhcpd][:next_server] %>/suse autoyast=http://<%= @node[:pxe][:dhcpd][:next_server] %>/suse/autoinst.xml
+  
+
+# Install x86_64 Linux
+label install64
+  kernel linux64
+  append initrd=initrd64 splash=silent vga=0x314 showopts install=http://<%= @node[:pxe][:dhcpd][:next_server] %>/suse autoyast=http://<%= @node[:pxe][:dhcpd][:next_server] %>/suse/autoinst.xml
+  

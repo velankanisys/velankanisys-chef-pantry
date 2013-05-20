@@ -1,0 +1,15 @@
+{
+    "name": "hadoop-jobtracker",
+    "chef_type": "role",
+    "description": "Hadoop Jobtracker",
+    "run_list": [
+        "recipe[hadoop-hdp::default]",
+		"recipe[hadoop-hdp::jobtracker]",
+		"recipe[hadoop-hdp::datanode]",
+		"recipe[hadoop-hdp::tasktracker]"
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}

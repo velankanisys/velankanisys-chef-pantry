@@ -1,0 +1,31 @@
+ddns-update-style none;
+default-lease-time 600;
+option domain-name-servers <%= @node[:pxe][:dhcpd][:dns_server] %>;
+max-lease-time 7200;
+allow booting;
+allow bootp;
+class "pxeclients" {
+  match if substring(option vendor-class-identifier, 0, 9) = "PXEClient";
+  next-server <%= @node[:pxe][:dhcpd][:next_server] %>;
+  filename = "<%= @node[:pxe][:dhcpd][:filename] %>";
+
+}
+
+subnet <%= @node[:pxe][:dhcpd][:subnet] %> netmask <%= @node[:pxe][:dhcpd][:subnet_mask] %> {
+  pool {
+    allow members of "pxeclients";
+    range <%= @node[:pxe][:dhcpd][:host_range] %>;
+  }
+}
+
+
+<% @hosts.each do |host| -%>
+host <%= host['id'] %> {
+       hardware ethernet <%= host['mac_address'] %>;
+       fixed-address <%= host['ip'] %>;
+       option routers <%= host['gateway'] %>;
+       option subnet-mask <%= host['mask'] %>;
+       option broadcast-address <%= host['broadcast'] %>;
+       option host-name "<%= host['host_name'] %>";
+}
+<% end -%>

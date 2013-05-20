@@ -1,0 +1,21 @@
+[kdcdefaults]
+    kdc_ports = 750,88
+
+[realms]
+    <%=  node[:kerberos][:default_realm] %> = {
+        database_name = /var/kerberos/krb5kdc/principal
+        admin_keytab = FILE:/var/kerberos/krb5kdc/kadm5.keytab
+        acl_file = /var/kerberos/krb5kdc/kadm5.acl
+        key_stash_file = /var/kerberos/krb5kdc/stash
+        kdc_ports = 750,88
+        max_life = 14h 0m 0s
+        max_renewable_life = 7d 0h 0m 0s
+        master_key_type = des3-hmac-sha1
+        supported_enctypes = aes256-cts:normal arcfour-hmac:normal des3-hmac-sha1:normal des-cbc-crc:normal des:normal des:v4 des:norealm des:onlyrealm des:afs3
+    }
+
+[logging]
+        kdc = SYSLOG:info:auth
+        admin_server = SYSLOG:info:auth
+        default = SYSLOG:info:auth
+

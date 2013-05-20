@@ -1,0 +1,5 @@
+cookbook_path "/etc/chef/chef-cookbooks-master"
+file_cache_path "/etc/chef-solo" 
+role_path "/etc/chef-solo/roles" 
+data_bag_path "<%= @node[:automator][:orchestrator][:data_bags] %>"
+json_attribs "/etc/chef/node.json" 

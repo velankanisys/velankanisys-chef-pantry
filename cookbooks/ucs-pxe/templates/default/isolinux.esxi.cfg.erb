@@ -1,0 +1,11 @@
+default 1
+prompt 1
+menu title VMware VMvisor Boot Menu
+timeout 50
+
+label 1
+kernel esxi/mboot.c32
+append -c esxi/boot.cfg esxi/vmkboot.gz ks=http://<%= @node[:pxe][:dhcpd][:next_server] %>/esxi/ks.cfg --- esxi/vmkernel.gz --- esxi/sys.vgz --- esxi/cim.vgz --- esxi/ienviron.vgz --- esxi/install.vgz
+
+label 0
+localboot 0x80

@@ -1,0 +1,7 @@
+{
+    "id":"FIB",
+    "port_range_start":"1",
+    "port_range_end":"4",
+    "switch":"B",
+    "slot":"2"
+}

@@ -1,0 +1,30 @@
+{
+  "name": "bigdatadev",
+  "description": "Installs/Configures a Big Data Development Environment",
+  "long_description": "Description\n===========\n\nA Cookbook to setup a development environment to work with Big Data. Current features:\n\n* Setup a Cloudera (CHD4) Hadoop and HBase environment in pseudo distributed mode\n\nRequirements\n============\n\nAn Ubuntu 12.0.4 LTS machine with at least 1G of RAM and 20G of disk space.\n\nAttributes\n==========\n\n\t#Hadoop\n\tdefault[:bigdatadev][:hadoop][:dist] = \"cdh4\"\n\tdefault[:bigdatadev][:hadoop][:path] = \"http://archive.cloudera.com/cdh4/one-click-install/precise/amd64/cdh4-repository_1.0_all.deb\"\n\tdefault[:bigdatadev][:hadoop][:java_home] = \"/usr/lib/jvm/jdk1.6.0_37\"\n\tdefault[:bigdatadev][:hadoop][:user] = \"cdhuser\"\n\n\t#HBase\n\tdefault[:bigdatadev][:hbase][:dir] = \"hbase\"\n\tdefault[:bigdatadev][:hbase][:user] = \"hbaseuser\"\n\n\nUsage\n=====\n\nCreate a a role that contains \"recipe[bigdatadev::hadoop_pseudo_dist]\" and \"recipe[bigdatadev::hbase_pseudo_dist]\" and apply it a node.\n\nExample:\n\n\tchef_type:            role\n\tdefault_attributes:   {}\n\tdescription:          \n\tenv_run_lists:        {}\n\tjson_class:           Chef::Role\n\tname:                 bigdatadev\n\toverride_attributes:  {}\n\trun_list:            \n\t    recipe[bigdatadev::hadoop_pseudo_dist]\n\t    recipe[bigdatadev::hbase_pseudo_dist]\n",
+  "maintainer": "Velankani Information Systems, Inc",
+  "maintainer_email": "eng@velankani.net",
+  "license": "All rights reserved",
+  "platforms": {
+  },
+  "dependencies": {
+    "java": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.0.1"
+}

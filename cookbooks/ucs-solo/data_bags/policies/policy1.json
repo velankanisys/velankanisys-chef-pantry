@@ -1,0 +1,30 @@
+{
+    "id":"policy1",
+    "SANBoot":{
+        "name":"SANBoot",
+        "type":"SAN",
+        "description":"SAN Boot Policy",
+        "org":"IT",
+        "vhba_a":"vHBA-A",
+        "vhba_b":"vHBA-B",
+        "target_a_1":"50:00:00:00:00:00:00:00",
+        "target_a_2":"50:00:00:00:00:00:00:01",
+        "target_b_1":"50:00:00:00:00:00:00:02",
+        "target_b_2":"50:00:00:00:00:00:00:03"
+    },
+    "LocalBoot":{
+        "name":"LocalBoot",
+        "type":"local",
+        "description":"Local Boot Policy",
+        "org":"IT"
+    },
+    "PXEBoot":{
+        "name":"PXEBoot",
+        "type":"PXE",
+        "description":"PXE Boot Policy",
+        "org":"IT",
+        "vnic_a":"vNIC-A",
+        "vnic_b":"vNIC-B"
+    }
+
+}

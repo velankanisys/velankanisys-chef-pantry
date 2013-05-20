@@ -1,0 +1,13 @@
+{
+    "name": "hadoop-worker",
+    "chef_type": "role",
+    "description": "Hadoop Worker",
+    "run_list": [
+        "role[hadoop-datanode]",
+		"role[hadoop-tasktracker]"
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}

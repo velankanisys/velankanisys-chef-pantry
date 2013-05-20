@@ -1,0 +1,11 @@
+{
+    "id":"adaptor",
+    "host_firmware_pkg_name":"hadoop-fw",
+    "host_firmware_pkg_description":"hadoop Firmware",
+    "org":"IT",
+    "hardware_model":"N20-AC0002",
+    "hardware_type":"adaptor",
+    "hardware_vendor":"Cisco Systems Inc",
+    "firmware_version":"2.0(1m)"
+}
+

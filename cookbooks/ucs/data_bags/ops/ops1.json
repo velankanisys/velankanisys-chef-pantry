@@ -1,0 +1,9 @@
+{
+	"id": "ops1",
+	"service_profile_template_name": "hadoop-Template-1",
+	"org": "IT",
+	"service_profile_template_mgmt_ip_pool": "ext-mgmt",
+	"service_profile_template_boot_policy": "SANBoot",
+	"service_profile_template_host_fw_policy": "hadoop-fw",
+	"service_profile_template_uuid_pool": "hadoop-uuid"
+}

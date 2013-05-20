@@ -1,0 +1,10 @@
+{
+    "id":"mgmt1",
+    "mgmt_firmware_pkg_name":"hadoop-fw",
+    "mgmt_firmware_pkg_description":"hadoop Firmware",
+    "org":"IT",
+    "hardware_model":"B230-BASE-M2",
+    "hardware_type":"blade-controller",
+    "hardware_vendor":"Cisco Systems Inc",
+    "firmware_version":"2.0(2q)"
+}

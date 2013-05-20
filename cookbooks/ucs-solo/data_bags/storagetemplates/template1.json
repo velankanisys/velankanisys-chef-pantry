@@ -1,0 +1,9 @@
+{
+	"id": "template1",
+	"vhba_template_name": "hadoop-A",
+	"description": "VHBA Template for the A side",
+	"wwpn_pool": "hadoop-wwpn",
+	"switch": "A",
+	"vsan_name": "vsan100",
+	"org": "IT"
+}
