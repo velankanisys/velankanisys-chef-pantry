@@ -19,5 +19,5 @@ Third-party cookbooks in this repository:
 
 [java, mysql, database, xfs, aws] by [Opscode](https://github.com/opscode/cookbooks)
 
-For more information and customized Cookbook development for Data Center Automation, talk to us via consulting@velankani.net
+For more information and customized Cookbook development for Infrastructure Automation, talk to us via consulting@velankani.net
 

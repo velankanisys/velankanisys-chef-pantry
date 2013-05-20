@@ -65,4 +65,4 @@ http://help.opscode.com/faqs/chefbasics/knife
 Next Steps
 ==========
 
-Read the README file in each of the subdirectories for more information about what goes in those directories. For more information and customized Cookbook development for Data Center Automation, talk to us via consulting@velankani.net
+Read the README file in each of the subdirectories for more information about what goes in those directories. For more information and customized Cookbook development for Infrastructure Automation, talk to us via consulting@velankani.net
