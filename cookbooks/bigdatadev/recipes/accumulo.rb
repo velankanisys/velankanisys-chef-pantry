@@ -50,16 +50,16 @@ remote_file "/tmp/#{accumulo_dist}.tar.gz" do
   not_if { File.exists?("/tmp/#{accumulo_dist}.tar.gz") }
 end
 
+template "/etc/apt/sources.list.d/cloudera.list" do
+  source "cloudera-cm3.list.erb"
+  mode 0644
+end
+
 script "Installing Cloudera Hadoop CDH3u2" do
   interpreter "bash"
   user "root"
   code <<-EOH
-  RELEASE=`lsb_release -c | awk {'print $2'}`
-  curl -s http://archive.cloudera.com/debian/archive.key | sudo apt-key add -
-  apt-get install python-software-properties -y
-  add-apt-repository "deb http://archive.canonical.com/ $RELEASE partner"
-  add-apt-repository "deb http://archive.ubuntu.com/ubuntu/ $RELEASE multiverse"
-  add-apt-repository "deb http://archive.cloudera.com/debian $RELEASE-cdh3u2 contrib"
+
   apt-get update
   apt-get autoremove -y
   export JAVA_HOME=#{java_home}
