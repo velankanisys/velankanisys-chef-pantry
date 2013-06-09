@@ -20,6 +20,8 @@
 # This recipe is for Cloudera Hadoop CDH4 on Ubuntu 12.04.LTS only
 # Most of this will refactored in a later version
 
+# #{accumulo_home}/bin/accumulo shell -u root
+
 
 include_recipe "java::oracle"
 
@@ -83,39 +85,38 @@ end
 #   EOH
 # end
 
-template "/etc/zookeeper/conf/zoo.cfg" do
+template "/etc/zookeeper/zoo.cfg" do
   source "zoo.cfg.erb"
   mode 0644
 end
 
-template "/etc/hadoop/conf.pseudo.mr1/hdfs-site.xml" do
+template "/etc/hadoop/conf/hdfs-site.xml" do
   source "hdfs-site.xml.erb"
   mode 0644
 end
 
-template "/usr/lib/hadoop/libexec/hadoop-config.sh" do
-  source "hadoop-config.sh.erb"
+template "/etc/hadoop/conf/mapred-site.xml" do
+  source "mapred-site.xml.erb"
   mode 0644
 end
 
-template "/usr/lib/hadoop-0.20-mapreduce/bin/hadoop-config.sh" do
-  source "hadoop-config-map-reduce.sh.erb"
+template "/etc/hadoop/conf/core-site.xml" do
+  source "core-site.xml.erb"
   mode 0644
 end
+
 
 
 script "Installing Accumulo" do
   interpreter "bash"
   user "root"
   code <<-EOH
-  mkdir #{accumulo_home}
-  cd /usr/local
-  tar -xzf /tmp/#{accumulo_dist}.tar.gz
-  ln -s #{accumulo_dist} accumulo
-  cp accumulo/lib/accumulo-core-1.3.5-incubating.jar /usr/lib/hadoop/lib
-  cp accumulo/lib/log4j-1.2.16.jar /usr/lib/hadoop/lib/
-  cp accumulo/lib/libthrift-0.3.jar /usr/lib/hadoop/lib/
-  cp accumulo/lib/cloudtrace-1.3.5-incubating.jar /usr/lib/hadoop/lib/
+  tar -xzf /tmp/#{accumulo_dist}.tar.gz -C /usr/local
+  ln -s /usr/local/#{accumulo_dist} #{accumulo_home}
+  cp #{accumulo_home}/lib/accumulo-core-1.3.5-incubating.jar /usr/lib/hadoop/lib
+  cp #{accumulo_home}/lib/log4j-1.2.16.jar /usr/lib/hadoop/lib/
+  cp #{accumulo_home}/lib/libthrift-0.3.jar /usr/lib/hadoop/lib/
+  cp #{accumulo_home}/lib/cloudtrace-1.3.5-incubating.jar /usr/lib/hadoop/lib/
   cp /usr/lib/zookeeper/zookeeper.jar /usr/lib/hadoop/lib/
   EOH
 end
@@ -161,30 +162,29 @@ template "#{accumulo_home}/conf/accumulo-metrics.xml" do
   mode 0644
 end
 
+script "Setting up and starting Cloudera Hadoop CDH3 services" do
+  interpreter "bash"
+  user "root"
+  code <<-EOH
+  chown -R hdfs /mnt
+  sudo -u hdfs hadoop namenode -format
+  /etc/init.d/hadoop-0.20-namenode start
+  /etc/init.d/hadoop-0.20-datanode start
+  EOH
+end
+
 
 script "Initializing and starting Accumulo" do
   interpreter "bash"
   user "root"
   code <<-EOH
-  #{accumulo_home}/bin/accumulo init
-  #{accumulo_home}/bin/start-all.sh
-  #{accumulo_home}/bin/accumulo shell -u root
+  sudo -u hdfs #{accumulo_home}/bin/accumulo init
+  sudo -u hdfs #{accumulo_home}/bin/start-all.sh
+  
   EOH
 end
 
 
-
-script "Setting up and starting Cloudera Hadoop CDH4 services" do
-  interpreter "bash"
-  user "root"
-  code <<-EOH
-  chown -R hdfs /mnt
-  sudo -u hdfs hdfs namenode -format
-  /etc/init.d/hadoop-hdfs-namenode start
-  /etc/init.d/hadoop-hdfs-secondarynamenode start
-  /etc/init.d/hadoop-hdfs-datanode start
-  EOH
-end
 
 script "Setting up and starting Cloudera Hadoop MapReduce" do
   interpreter "bash"
@@ -204,8 +204,8 @@ script "Setting up and starting Cloudera Hadoop MapReduce" do
   echo "Verifying HDFS file structure"
   sudo -u hdfs hadoop fs -ls -R /
   sleep 3
-  /etc/init.d/hadoop-0.20-mapreduce-jobtracker start
-  /etc/init.d/hadoop-0.20-mapreduce-tasktracker start
+  /etc/init.d/hadoop-0.20-jobtracker start
+  /etc/init.d/hadoop-0.20-tasktracker start
   EOH
 end
 

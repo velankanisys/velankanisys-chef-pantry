@@ -5,13 +5,13 @@ default[:bigdatadev][:hadoop][:zookeeper_data_dir] = "/mnt/var/lib/zookeeper"
 
 #Accumulo
 default[:bigdatadev][:accumulo][:path] = "https://archive.apache.org/dist/incubator/accumulo/1.3.5-incubating/accumulo-1.3.5-incubating-dist.tar.gz"
-default[:bigdatadev][:accumulo][:dist] = "accumulo-1.3.5-incubating-dist"
+default[:bigdatadev][:accumulo][:dist] = "accumulo-1.3.5-incubating"
 default[:bigdatadev][:accumulo][:home_dir] = '/usr/local/accumulo'
 
 #Hadoop CDH on Ubuntu 12.04.1 LTS
 default[:bigdatadev][:hadoop][:dist] = "cdh4"
 default[:bigdatadev][:hadoop][:path] = "http://archive.cloudera.com/cdh4/one-click-install/precise/amd64/cdh4-repository_1.0_all.deb"
-default[:bigdatadev][:hadoop][:java_home] = "/usr/lib/jvm/jdk1.6.0_37"
+default[:bigdatadev][:hadoop][:java_home] = "/usr/lib/jvm/default-java"
 default[:bigdatadev][:hadoop][:user] = "cdhuser"
 default[:bigdatadev][:hadoop][:install_user] = "root"
 default[:bigdatadev][:hadoop][:tmp_dir] = "/tmp"
