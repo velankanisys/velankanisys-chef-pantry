@@ -1,0 +1,13 @@
+{
+    "name": "hadoop-accumulo",
+    "chef_type": "role",
+    "description": "Hadoop with Accumulo",
+    "run_list": [
+    	"recipe[bigdatadev::hadoop_cdh_pseudo_dist]"
+
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}
