@@ -110,8 +110,8 @@ script "Installing Accumulo" do
   code <<-EOH
   mkdir #{accumulo_home}
   cd /usr/local
-  tar -xzf /tmp/#{accummulo_dist}.tar.gz
-  ln -s #{accummulo_dist} accumulo
+  tar -xzf /tmp/#{accumulo_dist}.tar.gz
+  ln -s #{accumulo_dist} accumulo
   cp accumulo/lib/accumulo-core-1.3.5-incubating.jar /usr/lib/hadoop/lib
   cp accumulo/lib/log4j-1.2.16.jar /usr/lib/hadoop/lib/
   cp accumulo/lib/libthrift-0.3.jar /usr/lib/hadoop/lib/
