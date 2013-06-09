@@ -47,7 +47,7 @@ end
 
 remote_file "/tmp/#{accumulo_dist}.tar.gz" do
   source "#{accumulo_path}"
-  not_if { File.exists?("/tmp/#{accummulo_dist}.tar.gz") }
+  not_if { File.exists?("/tmp/#{accumulo_dist}.tar.gz") }
 end
 
 # script "Installing Cloudera Hadoop CDH4" do
