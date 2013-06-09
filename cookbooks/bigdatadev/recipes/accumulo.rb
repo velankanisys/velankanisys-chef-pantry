@@ -50,6 +50,24 @@ remote_file "/tmp/#{accumulo_dist}.tar.gz" do
   not_if { File.exists?("/tmp/#{accumulo_dist}.tar.gz") }
 end
 
+script "Installing Cloudera Hadoop CDH3u2" do
+  interpreter "bash"
+  user "root"
+  code <<-EOH
+  RELEASE=`lsb_release -c | awk {'print $2'}`
+  curl -s http://archive.cloudera.com/debian/archive.key | sudo apt-key add -
+  apt-get install python-software-properties -y
+  add-apt-repository "deb http://archive.canonical.com/ $RELEASE partner"
+  add-apt-repository "deb http://archive.ubuntu.com/ubuntu/ $RELEASE multiverse"
+  add-apt-repository "deb http://archive.cloudera.com/debian $RELEASE-cdh3u2 contrib"
+  apt-get update
+  apt-get autoremove -y
+  export JAVA_HOME=#{java_home}
+  apt-get install hadoop-0.20 hadoop-0.20-datanode hadoop-0.20-tasktracker hadoop-0.20-namenode hadoop-0.20-jobtracker hadoop-zookeeper hadoop-zookeeper-server -y
+  EOH
+end
+
+
 # script "Installing Cloudera Hadoop CDH4" do
 #   interpreter "bash"
 #   user "root"
@@ -86,21 +104,21 @@ template "/usr/lib/hadoop-0.20-mapreduce/bin/hadoop-config.sh" do
 end
 
 
-# script "Installing and Setting up Accumulo" do
-#   interpreter "bash"
-#   user "root"
-#   code <<-EOH
-#   mkdir #{accumulo_home}
-#   cd /usr/local
-#   tar -xzf /tmp/#{accummulo_dist}.tar.gz
-#   ln -s #{accummulo_dist} accumulo
-#   cp accumulo/lib/accumulo-core-1.3.5-incubating.jar /usr/lib/hadoop/lib
-#   cp accumulo/lib/log4j-1.2.16.jar /usr/lib/hadoop/lib/
-#   cp accumulo/lib/libthrift-0.3.jar /usr/lib/hadoop/lib/
-#   cp accumulo/lib/cloudtrace-1.3.5-incubating.jar /usr/lib/hadoop/lib/
-#   cp /usr/lib/zookeeper/zookeeper.jar /usr/lib/hadoop/lib/
-#   EOH
-# end
+script "Installing Accumulo" do
+  interpreter "bash"
+  user "root"
+  code <<-EOH
+  mkdir #{accumulo_home}
+  cd /usr/local
+  tar -xzf /tmp/#{accummulo_dist}.tar.gz
+  ln -s #{accummulo_dist} accumulo
+  cp accumulo/lib/accumulo-core-1.3.5-incubating.jar /usr/lib/hadoop/lib
+  cp accumulo/lib/log4j-1.2.16.jar /usr/lib/hadoop/lib/
+  cp accumulo/lib/libthrift-0.3.jar /usr/lib/hadoop/lib/
+  cp accumulo/lib/cloudtrace-1.3.5-incubating.jar /usr/lib/hadoop/lib/
+  cp /usr/lib/zookeeper/zookeeper.jar /usr/lib/hadoop/lib/
+  EOH
+end
 
 template "#{accumulo_home}/conf/accumulo-env.sh" do
   source "accumulo-env.sh.erb"
@@ -144,54 +162,65 @@ template "#{accumulo_home}/conf/accumulo-metrics.xml" do
 end
 
 
-
-# script "Setting up and starting Cloudera Hadoop CDH4 services" do
-#   interpreter "bash"
-#   user "root"
-#   code <<-EOH
-#   chown -R hdfs /mnt
-#   sudo -u hdfs hdfs namenode -format
-#   /etc/init.d/hadoop-hdfs-namenode start
-#   /etc/init.d/hadoop-hdfs-secondarynamenode start
-#   /etc/init.d/hadoop-hdfs-datanode start
-#   EOH
-# end
-
-# script "Setting up and starting Cloudera Hadoop MapReduce" do
-#   interpreter "bash"
-#   user "root"
-#   code <<-EOH
-#   sudo -u hdfs hadoop fs -mkdir /tmp
-#   sudo -u hdfs hadoop fs -chmod -R 1777 /tmp
-#   sudo -u hdfs hadoop fs -mkdir #{data_dir}/var
-#   sudo -u hdfs hadoop fs -mkdir #{data_dir}/var/lib
-#   sudo -u hdfs hadoop fs -mkdir #{data_dir}/var/lib/hadoop-hdfs
-#   sudo -u hdfs hadoop fs -mkdir #{data_dir}/var/lib/hadoop-hdfs/cache
-#   sudo -u hdfs hadoop fs -mkdir #{data_dir}/var/lib/hadoop-hdfs/cache/mapred
-#   sudo -u hdfs hadoop fs -mkdir #{data_dir}/var/lib/hadoop-hdfs/cache/mapred/mapred
-#   sudo -u hdfs hadoop fs -mkdir #{data_dir}/var/lib/hadoop-hdfs/cache/mapred/mapred/staging
-#   sudo -u hdfs hadoop fs -chmod 777 #{data_dir}/var/lib/hadoop-hdfs/cache/mapred/mapred/staging
-#   sudo -u hdfs hadoop fs -chown -R mapred #{data_dir}/var/lib/hadoop-hdfs/cache/mapred
-#   echo "Verifying HDFS file structure"
-#   sudo -u hdfs hadoop fs -ls -R /
-#   sleep 3
-#   /etc/init.d/hadoop-0.20-mapreduce-jobtracker start
-#   /etc/init.d/hadoop-0.20-mapreduce-tasktracker start
-#   EOH
-# end
-
-# script "Setting up home directories" do
-#   interpreter "bash"
-#   user "root"
-#   code <<-EOH
-#   sudo -u hdfs hadoop fs -mkdir  /user/#{user}
-#   sudo -u hdfs hadoop fs -chown #{user} /user/#{user}
-#   EOH
-# end
+script "Initializing and starting Accumulo" do
+  interpreter "bash"
+  user "root"
+  code <<-EOH
+  #{accumulo_home}/bin/accumulo init
+  #{accumulo_home}/bin/start-all.sh
+  #{accumulo_home}/bin/accumulo shell -u root
+  EOH
+end
 
 
-# service "zookeeper-server" do
-#   action :restart
-# end
+
+script "Setting up and starting Cloudera Hadoop CDH4 services" do
+  interpreter "bash"
+  user "root"
+  code <<-EOH
+  chown -R hdfs /mnt
+  sudo -u hdfs hdfs namenode -format
+  /etc/init.d/hadoop-hdfs-namenode start
+  /etc/init.d/hadoop-hdfs-secondarynamenode start
+  /etc/init.d/hadoop-hdfs-datanode start
+  EOH
+end
+
+script "Setting up and starting Cloudera Hadoop MapReduce" do
+  interpreter "bash"
+  user "root"
+  code <<-EOH
+  sudo -u hdfs hadoop fs -mkdir /tmp
+  sudo -u hdfs hadoop fs -chmod -R 1777 /tmp
+  sudo -u hdfs hadoop fs -mkdir #{data_dir}/var
+  sudo -u hdfs hadoop fs -mkdir #{data_dir}/var/lib
+  sudo -u hdfs hadoop fs -mkdir #{data_dir}/var/lib/hadoop-hdfs
+  sudo -u hdfs hadoop fs -mkdir #{data_dir}/var/lib/hadoop-hdfs/cache
+  sudo -u hdfs hadoop fs -mkdir #{data_dir}/var/lib/hadoop-hdfs/cache/mapred
+  sudo -u hdfs hadoop fs -mkdir #{data_dir}/var/lib/hadoop-hdfs/cache/mapred/mapred
+  sudo -u hdfs hadoop fs -mkdir #{data_dir}/var/lib/hadoop-hdfs/cache/mapred/mapred/staging
+  sudo -u hdfs hadoop fs -chmod 777 #{data_dir}/var/lib/hadoop-hdfs/cache/mapred/mapred/staging
+  sudo -u hdfs hadoop fs -chown -R mapred #{data_dir}/var/lib/hadoop-hdfs/cache/mapred
+  echo "Verifying HDFS file structure"
+  sudo -u hdfs hadoop fs -ls -R /
+  sleep 3
+  /etc/init.d/hadoop-0.20-mapreduce-jobtracker start
+  /etc/init.d/hadoop-0.20-mapreduce-tasktracker start
+  EOH
+end
+
+script "Setting up home directories" do
+  interpreter "bash"
+  user "root"
+  code <<-EOH
+  sudo -u hdfs hadoop fs -mkdir  /user/#{user}
+  sudo -u hdfs hadoop fs -chown #{user} /user/#{user}
+  EOH
+end
+
+
+service "zookeeper-server" do
+  action :restart
+end
 
 
