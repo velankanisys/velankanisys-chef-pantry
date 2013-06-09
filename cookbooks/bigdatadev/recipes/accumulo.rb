@@ -59,7 +59,7 @@ script "Installing Cloudera Hadoop CDH3u2" do
   interpreter "bash"
   user "root"
   code <<-EOH
-
+  curl -s http://archive.cloudera.com/debian/archive.key | sudo apt-key add -
   apt-get update
   apt-get autoremove -y
   export JAVA_HOME=#{java_home}
