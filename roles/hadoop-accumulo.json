@@ -3,7 +3,7 @@
     "chef_type": "role",
     "description": "Hadoop with Accumulo",
     "run_list": [
-    	"recipe[bigdatadev::hadoop_cdh_pseudo_dist]"
+    	"recipe[bigdatadev::accumulo]"
 
     ],
     "default_attributes": {
