@@ -31,7 +31,9 @@
 # master-hadoop node
 # on the master node3) 127.0.0.1 (default)
 
-
+package "wget" do
+  action :install
+end
 include_recipe "java::oracle"
 
 #The following has bugs. Commenting out until fix.
