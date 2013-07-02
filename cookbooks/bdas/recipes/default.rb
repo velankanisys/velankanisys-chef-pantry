@@ -25,6 +25,7 @@ scala_source_path = node[:bdas][:scala][:wget_path]
 spark_source_path = node[:bdas][:spark][:wget_path]
 scala_dist = node[:bdas][:scala][:dist]
 spark_dist = node[:bdas][:spark][:dist]
+spark_home = node[:bdas][:shark][:home] 
 
 remote_file "/tmp/#{scala_dist}.tar.gz" do
   source "#{scala_source_path}"
@@ -55,7 +56,16 @@ script "Installing Scala" do
 end
 
 
-# template "/etc/hadoop/conf/core-site.xml" do
-#   source "core-site.xml.erb"
-#   mode 0644
-# end
+script "Installing Spark" do
+  interpreter "bash"
+  code <<-EOH
+  tar -zxvf /tmp/#{spark_dist}.tar.gz -C /usr/local/
+  EOH
+  
+  not_if { File.exists?("/usr/local/#{spark_dist}") }
+end
+
+template "#{spark_home}/conf/spark-env.sh" do
+  source "spark-env.sh.erb"
+  mode 0644
+end
