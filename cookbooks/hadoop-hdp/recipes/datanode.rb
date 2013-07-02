@@ -27,8 +27,8 @@ script "Creating Data Node Directories and Setting Permissions" do
   interpreter "bash"
   user "root"
   code <<-EOH
-  mkdir -p  /media/ephemeral0/var/lib/hadoop/cache/hdfs/dfs/data
-	chown -R hdfs:hadoop /media/ephemeral0/var/lib/hadoop/cache/hdfs
+  mkdir -p  /mnt/var/lib/hadoop/cache/hdfs/dfs/data
+	chown -R hdfs:hadoop /mnt/var/lib/hadoop/cache/hdfs
   EOH
   not_if { ::File.exists?("#{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hdfs/dfs/data") }
 end
