@@ -3,7 +3,8 @@
     "chef_type": "role",
     "description": "BDAS worker node",
     "run_list": [
-    	"recipe[bdas::default]"
+    	"recipe[bdas::default]",
+        "recipe[bdas::spark_worker]"
     ],
     "default_attributes": {
     },
