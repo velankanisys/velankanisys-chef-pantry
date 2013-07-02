@@ -51,7 +51,7 @@ script "Installing Scala" do
   tar -zxvf /tmp/#{scala_dist}.tar.gz -C /usr/local/
   EOH
   
-  not_if "/usr/local/#{scala_dist}"
+  not_if { File.exists?("/usr/local/#{scala_dist}") }
 end
 
 
