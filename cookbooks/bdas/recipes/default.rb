@@ -25,7 +25,7 @@ scala_source_path = node[:bdas][:scala][:wget_path]
 spark_source_path = node[:bdas][:spark][:wget_path]
 scala_dist = node[:bdas][:scala][:dist]
 spark_dist = node[:bdas][:spark][:dist]
-spark_home = node[:bdas][:shark][:home] 
+spark_home = node[:bdas][:spark][:home] 
 
 remote_file "/tmp/#{scala_dist}.tar.gz" do
   source "#{scala_source_path}"
