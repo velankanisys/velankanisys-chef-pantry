@@ -1,0 +1,12 @@
+{
+    "name": "bdas-worker",
+    "chef_type": "role",
+    "description": "BDAS worker node",
+    "run_list": [
+    	"recipe[bdas::default]"
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}
