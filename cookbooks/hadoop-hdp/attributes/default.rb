@@ -1,7 +1,7 @@
 default[:hortonworks_hdp][:manage_all_config_files] = false
 default[:hortonworks_hdp][:nofiles] = 32768
-#default[:hortonworks_hdp][:swapfile_location] = "/media/ephemeral0/swapfile"
-default[:hortonworks_hdp][:swapfile_location] = "/swapfile"
+default[:hortonworks_hdp][:swapfile_location] = "/media/ephemeral0/swapfile"
+#default[:hortonworks_hdp][:swapfile_location] = "/swapfile"
 
 
 default[:hortonworks_hdp][:namenode][:host] = "hadoop-bdas-node1"
