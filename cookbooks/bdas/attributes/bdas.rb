@@ -34,8 +34,8 @@ default[:bdas][:hbase][:user] = "hbaseuser"
 
 ## BDAS
 
-default[:bdas][:scala][:wget_path] = "https://velankani.box.com/s/0bh9rtxet1mbbgcnibkt"
-default[:bdas][:spark][:wget_path] = "https://velankani.box.com/s/2708yno8fvzms59s40xf"
+default[:bdas][:scala][:wget_path] = "https://velankani.box.com/shared/static/0bh9rtxet1mbbgcnibkt.gz"
+default[:bdas][:spark][:wget_path] = "https://velankani.box.com/shared/static/2708yno8fvzms59s40xf.gz"
 default[:bdas][:mesos][:wget_path] = "https://velankani.box.com/shared/static/e3d8a58ynvij6f4yi21t.rpm"
 default[:bdas][:scala][:dist] = "scala-2.9.3"
 default[:bdas][:spark][:dist] = "scala-0.7.2"
