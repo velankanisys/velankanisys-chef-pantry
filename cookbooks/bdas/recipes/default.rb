@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 
+package "upstart"
 
 include_recipe "java::oracle"
 
@@ -69,3 +70,15 @@ template "/usr/local/spark-0.7.2/conf/spark-env.sh" do
   source "spark-env.sh.erb"
   mode 0644
 end
+
+template "/usr/local/spark-0.7.2/bin/spark-worker.sh" do
+  source "spark-worker.sh.erb"
+  mode 0755
+end
+
+# template "/etc/init.d/spark-worker" do
+#   source "spark-worker-initd.sh.erb"
+#   owner "root"
+#   group "root"
+#   mode "0744"
+# end

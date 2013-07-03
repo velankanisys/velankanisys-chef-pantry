@@ -1,0 +1,4 @@
+#!/bin/bash
+
+
+/usr/local/spark-0.7.2/run spark.deploy.worker.Worker spark://<%= @node[:bdas][:spark][:master] %>:7077 &

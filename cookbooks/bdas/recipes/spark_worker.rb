@@ -17,13 +17,34 @@
 # limitations under the License.
 #
 
+#Disable init.d and use upstart due to CentOS initd status issues with Chef
 
 
-spark_master = node[:bdas][:spark][:master]
-spark_home = node[:bdas][:spark][:home]
+# template "spark-worker" do
+#   path "/etc/init.d/spark-worker"
+#   source "spark-worker-initd.sh.erb"
+#   owner "root"
+#   group "root"
+#   mode "0755"
+#   # notifies :enable, "service[spark-worker]"
+#   # notifies :start, "service[spark-worker]"
+# end
 
 
-execute "Starting Spark Worker" do
-  command "#{spark_home}/run spark.deploy.worker.Worker spark://#{spark_master}:7077 &"
-  action :run
+template "spark-worker" do
+  path "/etc/init/spark-worker.conf"
+  source "spark-worker-init.conf.erb"
+  owner "root"
+  group "root"
+  mode "0755"
+  notifies :enable, "service[spark-worker]"
+  notifies :start, "service[spark-worker]"
 end
+
+service "spark-worker" do
+    provider Chef::Provider::Service::Upstart
+    supports :status => true, :restart => true
+    action [:enable, :start]
+end 
+
+
