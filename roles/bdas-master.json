@@ -1,0 +1,14 @@
+{
+    "name": "bdas-master",
+    "chef_type": "role",
+    "description": "BDAS master node",
+    "run_list": [
+    	"recipe[bdas::default]",
+        "recipe[bdas::spark_master]",
+        "recipe[bdas::spark_worker]"
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}
