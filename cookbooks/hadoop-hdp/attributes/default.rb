@@ -13,11 +13,11 @@ default[:hortonworks_hdp][:namenode][:dfs_name_dir] = "/mnt/var/lib/hadoop/cache
 #default[:hortonworks_hdp][:namenode][:hadoop_tmp_dir] = "/media/ephemeral0/var/lib/hadoop/cache/${user.name}"
 default[:hortonworks_hdp][:namenode][:hadoop_tmp_dir] = "/mnt/var/lib/hadoop/cache/${user.name}"
 #default[:hortonworks_hdp][:namenode][:dfs_name_dir_root] = "/media/ephemeral0"
-default[:hortonworks_hdp][:namenode][:dfs_name_dir_root] = "/mnt/var/lib/hadoop"
+default[:hortonworks_hdp][:namenode][:dfs_name_dir_root] = "/mnt"
 
 
 #Map Reduce
-default[:hortonworks_hdp][:jobtracker][:host] = "hadoop-hdp-node2"
+default[:hortonworks_hdp][:jobtracker][:host] = "hadoop-bdas-node2"
 default[:hortonworks_hdp][:jobtracker][:port] = 8021
 # default[:hortonworks_hdp][:mapreduce][:mapred_child_java_opts] = "-server -Xmx2048m -Djava.net.preferIPv4Stack=true"
 # default[:hortonworks_hdp][:mapreduce][:mapred_map_child_java_opts] = "-server -Xmx2048m -Djava.net.preferIPv4Stack=true"
@@ -31,7 +31,7 @@ default[:hortonworks_hdp][:mapreduce][:mapred_reduce_child_java_opts] = "-server
 
 #HiveServer2
 #default[:hortonworks_hdp][:hiveserver][:host] = "hadoop-hdp-node2"
-default[:hortonworks_hdp][:hiveserver][:host] = "hadoop-hdp-node6"
+default[:hortonworks_hdp][:hiveserver][:host] = "hadoop-bdas-node6"
 default[:hortonworks_hdp][:hiveserver][:javax_jdo_option_ConnectionURL] = "jdbc:mysql://localhost:3306/hivedb?createDatabaseIfNotExist=true"
 default[:hortonworks_hdp][:hiveserver][:lib] = "/usr/lib/hive/lib"
 default[:hortonworks_hdp][:mysql][:jdbc_connector] = "http://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.9/mysql-connector-java-5.1.9.jar"
