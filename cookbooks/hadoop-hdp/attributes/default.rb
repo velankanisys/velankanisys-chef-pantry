@@ -28,6 +28,9 @@ default[:hortonworks_hdp][:mapreduce][:mapred_map_child_java_opts] = "-server -X
 default[:hortonworks_hdp][:mapreduce][:mapred_reduce_child_java_opts] = "-server -Xmx1024m -Djava.net.preferIPv4Stack=true"
 
 
+#HDFS
+default[:hortonworks_hdp][:hdfs][:tmp_dir] = "/tmp"
+
 
 #HiveServer2
 #default[:hortonworks_hdp][:hiveserver][:host] = "hadoop-hdp-node2"
