@@ -25,7 +25,7 @@
 
   <property>
      <name>hadoop.tmp.dir</name>
-     <value><%= @node[:hortonworks_hdp][:hdfs][:tmp_dir] %></value>
+     <value><%= @node[:hortonworks_hdp][:hdfs][:tmp_dir] %>/${user.name}</value>
   </property>
 
   <!-- OOZIE proxy user setting -->
