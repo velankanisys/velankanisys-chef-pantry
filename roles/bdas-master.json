@@ -4,8 +4,7 @@
     "description": "BDAS master node",
     "run_list": [
     	"recipe[bdas::default]",
-        "recipe[bdas::spark_master]",
-        "recipe[bdas::spark_worker]"
+        "recipe[bdas::spark_master]"
     ],
     "default_attributes": {
     },
