@@ -5,7 +5,7 @@
 # the following two variables should be set:
 # - MESOS_NATIVE_LIBRARY, to point to your Mesos native library (libmesos.so)
 # - SCALA_HOME, to point to your Scala installation
-export MESOS_NATIVE_LIBRARY=/usr/local/mesos/lib
+export MESOS_NATIVE_LIBRARY=/usr/local/mesos/lib/libmesos.so
 export SCALA_HOME=<%= @node[:bdas][:scala][:home] %>
 # Options for SSH.
 export SSH_OPTS="-o StrictHostKeyChecking=no -o ConnectTimeout=2 -i /root/hadoop.pem"
