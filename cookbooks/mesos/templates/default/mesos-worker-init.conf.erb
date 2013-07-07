@@ -1,0 +1,22 @@
+# /etc/init/mesos-worker.conf
+description 'mesos worker startup'
+author 'Murali Raju'
+env NAME=MesosWorker
+env LOG_FILE=/var/log/mesos-worker.log
+env USER=root
+#env MESOS_WORKER_BIN=
+env SCRIPT_FILE=/usr/local/mesos/sbin/mesos-slave 
+env SCRIPT_OPTIONS=--master=<%= @node[:mesos][:master] %>:5050
+start on runlevel [2345] stop on runlevel [016]
+# Respawn in case of a crash, with default parameters
+# respawn
+script
+  # Make sure logfile exists and can be written by the user we drop privileges to
+  touch $LOG_FILE
+  chown $USER:$USER $LOG_FILE
+  # recommended approach in case of su/sudo usage so that service does not fork
+  exec su -s /bin/sh -c 'exec "$0" "$@"' $USER -- $SCRIPT_FILE $SCRIPT_OPTIONS >> $LOG_FILE 2>&1
+end script
+post-start script
+echo "app $NAME post-start event" >> $LOG_FILE
+end script

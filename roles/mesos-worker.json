@@ -1,0 +1,13 @@
+{
+    "name": "mesos-worker",
+    "chef_type": "role",
+    "description": "Mesos worker node",
+    "run_list": [
+    	"recipe[mesos::default]",
+        "recipe[mesos::mesos_worker]"
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}

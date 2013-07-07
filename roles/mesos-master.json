@@ -1,0 +1,13 @@
+{
+    "name": "mesos-master",
+    "chef_type": "role",
+    "description": "Mesos master node",
+    "run_list": [
+    	"recipe[mesos::default]",
+        "recipe[mesos::mesos_master]"
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}
