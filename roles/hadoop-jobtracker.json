@@ -4,9 +4,7 @@
     "description": "Hadoop Jobtracker",
     "run_list": [
         "recipe[hadoop-hdp::default]",
-		"recipe[hadoop-hdp::jobtracker]",
-		"recipe[hadoop-hdp::datanode]",
-		"recipe[hadoop-hdp::tasktracker]"
+		"recipe[hadoop-hdp::jobtracker]"
     ],
     "default_attributes": {
     },
