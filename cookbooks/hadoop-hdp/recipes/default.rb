@@ -107,7 +107,7 @@ end
 
 
 # execute "install hdp repo package" do
-#   command "rpm -Uvh http://public-repo-1.hortonworks.com/HDP-1.1.0.15/repos/centos6/hdp-release-1.1.0.15-1.el6.noarch.rpm"
+#   command "wget -nv http://public-repo-1.hortonworks.com/HDP-1.3.1/repos/centos6/hdp.repo -O /etc/yum.repos.d/hdp.repo"
 #   not_if do
 #     ::File.exists?("/etc/yum.repos.d/hdp.repo")
 #   end
