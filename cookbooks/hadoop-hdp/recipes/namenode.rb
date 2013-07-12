@@ -23,13 +23,11 @@ package "hadoop-namenode" do
   action :install
 end
 
-# chown -R hdfs:hadoop /media/ephemeral0/
 
 script "Setting Permissions for NameNode format" do
   interpreter "bash"
   user "root"
   code <<-EOH
-  mkdir #{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}
   chown -R hdfs:hadoop #{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}
   EOH
 end
@@ -45,3 +43,7 @@ end
 service "hadoop-namenode" do
   action [ :enable, :start ]
 end
+
+
+# mkdir #{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}
+# chown -R hdfs:hadoop /media/ephemeral0/
