@@ -9,9 +9,9 @@ default[:bdas][:hadoop][:java_home] = "/usr/lib/jvm/default-java"
 default[:bdas][:hadoop][:user] = "cdhuser"
 default[:bdas][:hadoop][:install_user] = "root"
 default[:bdas][:hadoop][:tmp_dir] = "/tmp"
-default[:bdas][:hadoop][:dfs_namenode_name_dir] = "/mnt/hadoop/nn"
-default[:bdas][:hadoop][:dfs_namenode_checkpoint_dir] = "mnt/hadoop/sn"
-default[:bdas][:hadoop][:dfs_datanode_data_dir] = "/mnt/hadoop/data"
+default[:bdas][:namenode][:dfs_name_dir] = "/media/ephemeral0/var/lib/hadoop/cache/hadoop/dfs/name"  
+default[:bdas][:namenode][:hadoop_tmp_dir] = "/media/ephemeral0/var/lib/hadoop/cache/${user.name}"
+default[:bdas][:namenode][:dfs_name_dir_root] = "/media/ephemeral0"
 
 
 #Hadoop HDP on CentOS 6.3
