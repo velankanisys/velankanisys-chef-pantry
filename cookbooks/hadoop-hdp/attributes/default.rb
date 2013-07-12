@@ -13,7 +13,7 @@ default[:hortonworks_hdp][:namenode][:dfs_name_dir_root] = "/media/ephemeral0"
 
 #DataNode
 
-default[:hortonworks_hdp][:datanode][:dfs_data_dir] = "/media/ephemeral0/var/lib/hadoop/cache/hadoop/dfs/data"  
+default[:hortonworks_hdp][:datanode][:dfs_data_dir] = "/media/ephemeral0/var/lib/hadoop/cache/hdfs/dfs/data"  
 
 #Map Reduce
 default[:hortonworks_hdp][:jobtracker][:host] = "hadoop-hdp-node2"
