@@ -4,9 +4,7 @@
     "description": "Hadoop Namenode",
     "run_list": [
     	"recipe[hadoop-hdp::default]",
-        "recipe[hadoop-hdp::namenode]",
-		"recipe[hadoop-hdp::datanode]",
-		"recipe[hadoop-hdp::tasktracker]"
+        "recipe[hadoop-hdp::namenode]"
     ],
     "default_attributes": {
     },
