@@ -39,7 +39,7 @@ execute "Namenode format" do
 	#command "chown -R hdfs  #{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/*"
   command "su - hdfs -c '/usr/lib/hadoop/bin/hadoop namenode -format'"
   #ignore_failure true
-  not_if { ::File.exists?("#{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/cache/hadoop/dfs/name") }
+  not_if { ::File.exists?("#{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hadoop/dfs/name") }
 end
 
 service "hadoop-namenode" do
