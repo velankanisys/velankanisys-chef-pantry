@@ -20,6 +20,9 @@
 # limitations under the License.
 
 
+hive_server_lib_path = node[:hortonworks_hdp][:hiveserver][:lib]
+mysql_connector_java = node[:hortonworks_hdp][:mysql][:jdbc_connector]
+
 package "hive" do
   action :install
 end
