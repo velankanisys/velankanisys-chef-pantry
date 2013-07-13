@@ -1,0 +1,13 @@
+{
+    "name": "hadoop-client",
+    "chef_type": "role",
+    "description": "Hadoop Clients",
+    "run_list": [
+    	"recipe[hadoop-hdp::default]",
+        "recipe[hadoop-hdp::hive]"
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}
