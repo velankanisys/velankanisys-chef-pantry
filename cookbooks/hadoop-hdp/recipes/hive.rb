@@ -24,6 +24,10 @@ package "hive" do
   action :install
 end
 
+remote_file "#{hive_server_lib_path}/mysql-connector-java-5.1.9.jar" do
+  source "#{mysql_connector_java}"
+  not_if { File.exists?("#{hive_server_lib_path}/mysql-connector-java-5.1.9.jar") }
+end
 
 template "/etc/hive/conf/hive-site.xml" do
   source "hive-site.xml.erb"
