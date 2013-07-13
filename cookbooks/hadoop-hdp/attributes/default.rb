@@ -32,8 +32,7 @@ default[:hortonworks_hdp][:hdfs][:tmp_dir] = "/tmp"
 
 
 #HiveServer2
-#default[:hortonworks_hdp][:hiveserver][:host] = "hadoop-hdp-node2"
-default[:hortonworks_hdp][:hiveserver][:host] = "hadoop-hdp-node6"
+default[:hortonworks_hdp][:hiveserver][:host] = "hadoop-hdp-node2"
 default[:hortonworks_hdp][:hiveserver][:javax_jdo_option_ConnectionURL] = "jdbc:mysql://localhost:3306/hivedb?createDatabaseIfNotExist=true"
 default[:hortonworks_hdp][:hiveserver][:lib] = "/usr/lib/hive/lib"
 default[:hortonworks_hdp][:mysql][:jdbc_connector] = "http://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.9/mysql-connector-java-5.1.9.jar"
