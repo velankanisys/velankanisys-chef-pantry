@@ -5,7 +5,7 @@
     "run_list": [
     	"recipe[mysql::server]",
         "recipe[database::mysql]",
-        "recipe[hadoop-hdp-hiveserver2]"
+        "recipe[hadoop-hdp::hiveserver2]"
 
     ],
     "default_attributes": {

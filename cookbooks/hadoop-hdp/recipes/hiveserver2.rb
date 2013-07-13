@@ -92,14 +92,15 @@ script "Creating HiveServer Directories and Setting Permissions" do
   code <<-EOH
   mkdir -p #{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hive
   chown -R hive:hadoop #{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hive
+  chown -R hive:hive /var/lib/hive/
   EOH
   not_if { ::File.exists?("#{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hive") }
 end
 
 
-remote_file "/#{hive_server_lib_path}/mysql-connector-java-5.1.9.jar" do
+remote_file "#{hive_server_lib_path}/mysql-connector-java-5.1.9.jar" do
   source "#{mysql_connector_java}"
-  not_if { File.exists?("/#{hive_server_lib_path}/mysql-connector-java-5.1.9.jar") }
+  not_if { File.exists?("#{hive_server_lib_path}/mysql-connector-java-5.1.9.jar") }
 end
 
 
@@ -109,10 +110,12 @@ end
 # end
 
 service "hiveserver2-metastore" do
-  action :start
+  provider Chef::Provider::Service::Upstart
+  supports :status => true, :restart => true
+  action [:enable, :start]
 end
 
 service "hive-server2" do
-  action :start
+  action :restart
 end
 

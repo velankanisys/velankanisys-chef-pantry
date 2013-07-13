@@ -46,13 +46,13 @@ export HADOOP_CLIENT_OPTS="-Xmx${HADOOP_HEAPSIZE}m $HADOOP_CLIENT_OPTS"
 
 
 # Set HADOOP_HOME to point to a specific hadoop install directory
-# HADOOP_HOME=${HADOOP_HOME:-/opt/app/hdp-core/lib/hadoop}
+HADOOP_HOME=${HADOOP_HOME:-/usr/lib/hadoop}
 
 # Set HIVE_HOME
-# export HIVE_HOME=${BASE_DIR:-/opt/app/hive}/lib/hive
+export HIVE_HOME=${BASE_DIR:-/usr/lib/hive}
 
 # Hive Configuration Directory can be controlled by:
-# export HIVE_CONF_DIR=/opt/app/hive/etc/hive/conf
+export HIVE_CONF_DIR=/etc/hive/conf
 export JAVA_HOME=/usr/lib/jvm/java
 # Folder containing extra ibraries required for hive compilation/execution can be controlled by:
 # export HIVE_AUX_JARS_PATH=/opt/app/hcatalog/lib/hcatalog/share/hcatalog/hcatalog-core.jar

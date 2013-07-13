@@ -33,4 +33,14 @@ template "/etc/hive/conf/hive-site.xml" do
 end
 
 
+template "/etc/hive/conf/hive-env.sh" do
+  source "hive-env.sh.erb"
+  owner "root"
+  group "root"
+  mode 0755
+  # variables({
+  #             :jobtracker_ip => $master_node_ip,
+  #             :jobtracker_port => node[:hortonworks_hdp][:jobtracker][:port]
+  #           })
+end
 
