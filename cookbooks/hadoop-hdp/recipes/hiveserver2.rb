@@ -30,6 +30,8 @@ include_recipe "database::mysql"
 hive_server_lib_path = node[:hortonworks_hdp][:hiveserver][:lib]
 mysql_connector_java = node[:hortonworks_hdp][:mysql][:jdbc_connector]
 
+package "upstart"
+
 package "hive-server2" do
   action :install
 end
@@ -63,17 +65,35 @@ template "/etc/hive/conf/hive-env.sh" do
 end
 
 
+template "/usr/local/bin/hiveserver2-metastore.sh" do
+  source "hiveserver2-metastore.sh.erb"
+  owner "root"
+  group "root"
+  mode 0755
+  # variables({
+  #             :jobtracker_ip => $master_node_ip,
+  #             :jobtracker_port => node[:hortonworks_hdp][:jobtracker][:port]
+  #           })
+end
+
+template "hiveserver2-metastore" do
+  path "/etc/init/hiveserver2-metastore.conf"
+  source "hiveserver2-metastore-init.conf.erb"
+  owner "root"
+  group "root"
+  mode "0755"
+  notifies :enable, "service[hiveserver2-metastore]"
+  notifies :start, "service[hiveserver2-metastore]"
+end
+
 script "Creating HiveServer Directories and Setting Permissions" do
   interpreter "bash"
   user "root"
   code <<-EOH
-  mkdir /opt/hive/
-  chown -R hive:hadoop /opt/hive
-  mkdir -p /var/lib/hadoop/cache/hive
-  chown -R hive:hadoop /var/lib/hadoop/cache/hive
+  mkdir -p #{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hive
+  chown -R hive:hadoop #{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hive
   EOH
-  #not_if { ::File.exists?("#{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hive") }
-  not_if { ::File.exists?("#{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/cache/hive") }
+  not_if { ::File.exists?("#{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hive") }
 end
 
 
@@ -83,14 +103,16 @@ remote_file "/#{hive_server_lib_path}/mysql-connector-java-5.1.9.jar" do
 end
 
 
-execute "Starting Hive Metastore" do
-  command 'su -l hive -c "env HADOOP_HOME=/usr nohup hive --service metastore" > /opt/hive/hive.out 2> /opt/hive/hive.log &'
-  not_if { ::File.exists?("/var/run/hive/hive-server2.pid") }
-end
+# execute "Starting Hive Metastore" do
+#   command 'su -l hive -c "env HADOOP_HOME=/usr nohup hive --service metastore" > /opt/hive/hive.out 2> /opt/hive/hive.log &'
+#   not_if { ::File.exists?("/var/run/hive/hive-server2.pid") }
+# end
 
+service "hiveserver2-metastore" do
+  action :start
+end
 
 service "hive-server2" do
-  action :restart
+  action :start
 end
-
 
