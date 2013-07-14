@@ -3,7 +3,9 @@
     "chef_type": "role",
     "description": "Hadoop Clients",
     "run_list": [
-        "recipe[hadoop-hdp::hive]"
+        "recipe[hadoop-hdp::default]",
+        "recipe[hadoop-hdp::hive]",
+        "recipe[hadoop-hdp::pig]"
     ],
     "default_attributes": {
     },
