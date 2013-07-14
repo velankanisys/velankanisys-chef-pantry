@@ -18,7 +18,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-package "hadoop-datanode" do
+package "hadoop-hdfs-datanode" do
   action :install
 end
 
@@ -34,7 +34,7 @@ script "Creating Data Node Directories and Setting Permissions" do
 end
 
 
-service "hadoop-datanode" do
+service "hadoop-hdfs-datanode" do
   action [ :enable, :start ]
 end
 

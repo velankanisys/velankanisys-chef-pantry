@@ -18,11 +18,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-package "hadoop-secondarynamenode" do
+package "hadoop-hdfs-secondarynamenode" do
   action :install
 end
 
 
-service "hadoop-secondarynamenode" do
+service "hadoop-hdfs-secondarynamenode" do
   action [ :enable, :start ]
 end

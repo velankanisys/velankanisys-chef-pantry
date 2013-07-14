@@ -1,7 +1,7 @@
 {
-    "name": "hadoop-namenode",
+    "name": "hadoop2-namenode",
     "chef_type": "role",
-    "description": "Hadoop Namenode",
+    "description": "Hadoop 2.0 Namenode",
     "run_list": [
     	"recipe[hadoop-hdp-2.0::default]",
         "recipe[hadoop-hdp-2.0::namenode]"

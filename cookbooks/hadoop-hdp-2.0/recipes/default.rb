@@ -121,8 +121,8 @@ package "epel-release" do
 end
 
 %w'hadoop 
-hadoop-native 
-hadoop-pipes 
+hadoop 
+hadoop-mapreduce
 hadoop-libhdfs 
 snappy 
 snappy-devel 

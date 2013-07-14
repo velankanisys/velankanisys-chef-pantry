@@ -19,7 +19,7 @@
 # limitations under the License.
 
 
-package "hadoop-namenode" do
+package "hadoop-hdfs-namenode" do
   action :install
 end
 
@@ -35,12 +35,12 @@ end
 
 execute "Namenode format" do
 	#command "chown -R hdfs  #{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/*"
-  command "su - hdfs -c '/usr/lib/hadoop/bin/hadoop namenode -format'"
+  command "su - hdfs -c '/usr/bin/hdfs namenode -format'"
   #ignore_failure true
   not_if { ::File.exists?("#{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hadoop/dfs/name") }
 end
 
-service "hadoop-namenode" do
+service "hadoop-hdfs-namenode" do
   action [ :enable, :start ]
 end
 
