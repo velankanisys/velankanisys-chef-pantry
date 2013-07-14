@@ -1,0 +1,13 @@
+{
+    "name": "hadoop2-secondary-namenode",
+    "chef_type": "role",
+    "description": "Hadoop 2.0 Secondary Namenode",
+    "run_list": [
+    	"recipe[hadoop-hdp-2.0::default]",
+        "recipe[hadoop-hdp-2.0::secondarynamenode]"
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}
