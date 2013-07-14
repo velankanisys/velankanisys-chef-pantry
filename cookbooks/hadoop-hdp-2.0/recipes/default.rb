@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: hadoop-hdp
+# Cookbook Name:: hadoop-hdp-2.0
 # Recipe:: [Install Hadoop HortonWorks HDP base compoments]
 #
 # Original Author: https://github.com/rackerlabs/hdp-cookbooks
@@ -112,7 +112,6 @@ execute "install HDP 2.0 repo package" do
     ::File.exists?("/etc/yum.repos.d/hdp2.0.repo")
   end
 end
-
 
 
 
