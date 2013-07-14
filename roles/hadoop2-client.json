@@ -1,0 +1,14 @@
+{
+    "name": "hadoop2-client",
+    "chef_type": "role",
+    "description": "Hadoop 2.0 Clients",
+    "run_list": [
+        "recipe[hadoop-hdp-2.0::default]",
+        "recipe[hadoop-hdp-2.0::hive]",
+        "recipe[hadoop-hdp-2.0::pig]"
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}
