@@ -69,18 +69,8 @@ configmunge "increase open files limit" do
   appended_configs ["*  hard  nofile  #{node[:cloudera_cdh][:nofiles]}\n"]
 end
 
-# Ensure SELinux is disabled
-# configmunge "disable selinux" do
-#   config_file "/etc/sysconfig/selinux"
-#   filter /^SELINUX=/
-#   appended_configs ["SELINUX=disabled\n"]
-# end
-# execute "disable selinux - running" do
-#   command "setenforce 0"
-#   returns [0, 1]
-# end
 
-# CDH requires a little more than 2x swap to vmm size (we use 
+# CDH4 requires a little more than 2x swap to vmm size (we use 
 # system memory to be safe. This swap doesn't
 # get used, just reserved during spawning.
 
@@ -105,41 +95,50 @@ end
 
 # Package Repo Installation
 
-template "/etc/apt/sources.list" do
-  source "sources.list.erb"
-  mode 0644
+# template "/etc/apt/sources.list" do
+#   source "sources.list.erb"
+#   mode 0644
+# end
+
+# template "/etc/apt/sources.list.d/cloudera-cdh4.list" do
+#   source "cloudera-cdh4.list.erb"
+#   mode 0644
+# end
+
+remote_file "/tmp/cdh4-repository_1.0_all.deb" do
+  source "http://archive.cloudera.com/cdh4/one-click-install/precise/amd64/cdh4-repository_1.0_all.deb"
+  not_if { File.exists?("/tmp/cdh4-repository_1.0_all.deb") }
 end
 
-template "/etc/apt/sources.list.d/cloudera-cdh4.list" do
-  source "cloudera-cdh4.list.erb"
-  mode 0644
-end
 
 execute "Install CDH4 repo key" do
-  command "curl -s http://archive.cloudera.com/cdh4/ubuntu/precise/amd64/cdh/archive.key | sudo apt-key add -"
-  not_if {"apt-key list | egrep 'Cloudera Apt Repository'"}
+  command "dpkg -i /tmp/cdh4-repository_1.0_all.deb"
+  not_if {"dpkg --list | egrep 'cdh4-repository'"}
 end
 
-# execute "Update repo" do
-#   command "apt-get update"
+
+
+# execute "Install CDH4 repo key" do
+#   command "curl -s http://archive.cloudera.com/cdh4/ubuntu/precise/amd64/cdh/archive.key | sudo apt-key add -"
+#   not_if {"apt-key list | egrep 'Cloudera Apt Repository'"}
 # end
 
-# execute "apt-get-update" do
-#   command "apt-get update"
-#   ignore_failure true
-#   action :run
-# end
+execute "apt-get-update" do
+  command "apt-get update"
+  ignore_failure true
+  action :nothing
+end
 
-# package "update-notifier-common" do
-#   notifies :run, resources(:execute => "apt-get-update"), :immediately
-# end
+package "update-notifier-common" do
+  notifies :run, resources(:execute => "apt-get-update"), :immediately
+end
 
 execute "apt-get-update-periodic" do
   command "apt-get update"
   ignore_failure true
   only_if do
-    File.exists?('/var/lib/apt/periodic/update-success-stamp') &&
-    File.mtime('/var/lib/apt/periodic/update-success-stamp') < Time.now - 86400
+   File.exists?('/var/lib/apt/periodic/update-success-stamp') &&
+   File.mtime('/var/lib/apt/periodic/update-success-stamp') < Time.now - 86400
   end
 end
 
@@ -154,6 +153,7 @@ hadoop-lzo-cdh4-mr1
 hadoop-lzo-cdh4'.each do | pack |
   package pack do
     action :install
+    options "--force-yes"
   end
 end
 

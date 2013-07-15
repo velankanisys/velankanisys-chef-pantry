@@ -1,0 +1,13 @@
+{
+    "name": "hadoop-cdh4-datanode",
+    "chef_type": "role",
+    "description": "Hadoop CDH4 Datanode",
+    "run_list": [
+    	"recipe[hadoop-cdh4::default]",
+        "recipe[hadoop-cdh4::datanode]"
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}

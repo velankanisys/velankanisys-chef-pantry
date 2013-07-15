@@ -20,6 +20,7 @@
 
 package "hadoop-hdfs-datanode" do
   action :install
+  options "--force-yes"
 end
 
 
