@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: hadoop-hdp
+# Cookbook Name:: hadoop-cdh4
 # Recipe:: datanode
 #
 # Author: Murali Raju <murali.raju@appliv.com>
@@ -27,10 +27,10 @@ script "Creating Data Node Directories and Setting Permissions" do
   interpreter "bash"
   user "root"
   code <<-EOH
-  mkdir -p  #{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hdfs/dfs/data
-	chown -R hdfs:hadoop #{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hdfs
+  mkdir -p  #{node[:cloudera_cdh][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hdfs/dfs/data
+	chown -R hdfs:hadoop #{node[:cloudera_cdh][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hdfs
   EOH
-  not_if { ::File.exists?("#{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hdfs/dfs/data") }
+  not_if { ::File.exists?("#{node[:cloudera_cdh][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hdfs/dfs/data") }
 end
 
 

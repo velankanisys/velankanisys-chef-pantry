@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: hadoop-hdp-2.0
-# Recipe:: [Install Hadoop HortonWorks HDP base compoments]
+# Cookbook Name:: hadoop-cdh4
+# Recipe:: [Install Cloudera CDH4 base compoments]
 #
 # Original Author: https://github.com/rackerlabs/hdp-cookbooks
 # Author: Murali Raju <murali.raju@appliv.com>
@@ -40,16 +40,16 @@ include_recipe "java::oracle"
 
 
 # conditions = [nil, '']
-# if conditions.all? { | cond | node[:hortonworks_hdp][:hadoop_master_ip] != cond }
-#   $master_node_ip = node[:hortonworks_hdp][:hadoop_master_ip]
-# elsif conditions.all? { | cond | node[:hortonworks_hdp][:hadoop_network_interface] != cond }
+# if conditions.all? { | cond | node[:cloudera_cdh][:hadoop_master_ip] != cond }
+#   $master_node_ip = node[:cloudera_cdh][:hadoop_master_ip]
+# elsif conditions.all? { | cond | node[:cloudera_cdh][:hadoop_network_interface] != cond }
 #   query = "role:hadoop-master AND chef_environment:#{node.chef_environment}"
 #   result, _, _ = Chef::Search::Query.new.search(:node, query)
 #   # If we got no results, assume this is the master. 
 #   if result == [] && node.run_list.any?{|t| t == 'role[hadoop-master]'}
 #     results = [node]
 #   end
-#   result[0][:network][:interfaces][node[:hortonworks_hdp][:hadoop_network_interface]].addresses.each do | (k,v) |
+#   result[0][:network][:interfaces][node[:cloudera_cdh][:hadoop_network_interface]].addresses.each do | (k,v) |
 #     if v[:family] == "inet"
 #       $master_node_ip = k
 #       break
@@ -66,7 +66,7 @@ include_recipe "java::oracle"
 configmunge "increase open files limit" do
   config_file "/etc/security/limits.conf"
   filter /^[^#].*nofile/ 
-  appended_configs ["*  hard  nofile  #{node[:hortonworks_hdp][:nofiles]}\n"]
+  appended_configs ["*  hard  nofile  #{node[:cloudera_cdh][:nofiles]}\n"]
 end
 
 # Ensure SELinux is disabled
@@ -90,7 +90,7 @@ swapsize_raw = total_memory * 2.25 - total_swap
 $swapsize = ((swapsize_raw * 2).round / 2.0).floor
 
 swapfile "create swapfile" do
-  swapfile_location node[:hortonworks_hdp][:swapfile_location]
+  swapfile_location node[:cloudera_cdh][:swapfile_location]
   swapsize $swapsize
 end
 
@@ -103,22 +103,24 @@ service "iptables" do
 end
 
 
-# Package Installation
+# Package Repo Installation
 
+template "/etc/apt/sources.list" do
+  source "sources.list.erb"
+  mode 0644
+end
 
-execute "install HDP 2.0 repo package" do
-  command "wget -nv http://s3.amazonaws.com/public-repo-1.hortonworks.com/HDP-2.0.0.2/repos/centos6/hdp.repo -O /etc/yum.repos.d/hdp2.0.repo"
-  not_if do
-    ::File.exists?("/etc/yum.repos.d/hdp2.0.repo")
-  end
+template "/etc/apt/sources.list.d/cloudera-cdh4.list" do
+  source "cloudera-cdh4.list.erb"
+  mode 0644
+end
+
+execute "Install CDH4 repo key" do
+  command "curl -s http://archive.cloudera.com/cdh4/ubuntu/precise/amd64/cdh/archive.key | sudo apt-key add -"
+  not_if {'apt-key list | egrep 'Cloudera Apt Repository''}
 end
 
 
-
-# This package is made available by the hdp package above
-package "epel-release" do
-  action :install
-end
 
 %w'hadoop 
 hadoop 
@@ -151,7 +153,7 @@ execute "symlink snappy in" do
 end
 
 # Create cache directory
-directory "/var/lib/hadoop/cache" do
+directory "node[:cloudera_cdh][:namenode][:dfs_name_dir_root]/var/lib/hadoop/cache" do
   owner "root"
   group "root"
   mode "1777"
@@ -192,7 +194,7 @@ taskcontroller.cfg'.each do | f |
     user "root"
     group "root"
     only_if do
-      not ::File.exists?("/etc/hadoop/conf.chef/#{f}") || node[:hortonworks_hdp][:manage_all_config_files] == true
+      not ::File.exists?("/etc/hadoop/conf.chef/#{f}") || node[:cloudera_cdh][:manage_all_config_files] == true
     end
   end
 end
@@ -204,7 +206,7 @@ template "/etc/hadoop/conf.chef/core-site.xml" do
   group "root"
   variables({
               :namenode_ip => $master_node_ip,
-              :namenode_port => node[:hortonworks_hdp][:namenode][:port]
+              :namenode_port => node[:cloudera_cdh][:namenode][:port]
             })
 end
 
@@ -214,8 +216,8 @@ template "/etc/hadoop/conf.chef/hdfs-site.xml" do
   user "root"
   group "root"
   variables({
-              :safemode_min_datanodes => node[:hortonworks_hdp][:namenode][:safemode_min_datanodes],
-              :num_dfs_replicas => node[:hortonworks_hdp][:namenode][:num_dfs_replicas]
+              :safemode_min_datanodes => node[:cloudera_cdh][:namenode][:safemode_min_datanodes],
+              :num_dfs_replicas => node[:cloudera_cdh][:namenode][:num_dfs_replicas]
             })
 end
 
@@ -226,7 +228,7 @@ template "/etc/hadoop/conf.chef/mapred-site.xml" do
   mode 0755
   variables({
               :jobtracker_ip => $master_node_ip,
-              :jobtracker_port => node[:hortonworks_hdp][:jobtracker][:port]
+              :jobtracker_port => node[:cloudera_cdh][:jobtracker][:port]
             })
 end
 
@@ -241,7 +243,7 @@ end
 #     results, _, _ = Chef::Search::Query.new.search(:node, query)
 #     hdp_nodes = Hash.new
 #     results.each do | result |
-#       result[:network][:interfaces][node[:hortonworks_hdp][:hadoop_network_interface]].addresses.each do | (k,v) |
+#       result[:network][:interfaces][node[:cloudera_cdh][:hadoop_network_interface]].addresses.each do | (k,v) |
 #         hdp_nodes[result.name] = k if v[:family] == 'inet'
 #       end
 #     end
