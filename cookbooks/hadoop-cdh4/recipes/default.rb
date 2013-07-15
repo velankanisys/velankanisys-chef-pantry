@@ -247,46 +247,4 @@ template "/etc/hadoop/conf.chef/hadoop-env.sh" do
 end
 
 
-## Commented out later fix when FQDN is not present. Using manual hosts.erb for now
-
-# Finally throw down /etc/hosts based on the cluster 
-
-# ruby_block "apply hostfile changes" do
-#   block do
-#     query = "chef_environment:#{node.chef_environment}"
-#     results, _, _ = Chef::Search::Query.new.search(:node, query)
-#     CDH_nodes = Hash.new
-#     results.each do | result |
-#       result[:network][:interfaces][node[:cloudera_cdh][:hadoop_network_interface]].addresses.each do | (k,v) |
-#         CDH_nodes[result.name] = k if v[:family] == 'inet'
-#       end
-#     end
-#     marker_tpl = "# *** %s OF CHEF MANAGED Hosts ***\n"
-#     hostfile_entries = Array.new
-#     File.open('/etc/hosts', 'r') do | hostfile |
-#       marker = false
-#       while (line = hostfile.gets)
-#         if line =~/^#{marker_tpl.gsub('*', '\*') % ["(START|END)"]}/
-#           marker = line =~ /START/ ? true : false
-#           next
-#         end
-#         if marker == false
-#           unless line =~ /#{node.name}/
-#             hostfile_entries << line 
-#           end
-#         end
-#       end
-#       hostfile_entries << marker_tpl % ['START']
-#       CDH_nodes.each do | (k,v) |
-#         hostfile_entries << "#{v} #{k}\n"
-#       end
-#       hostfile_entries << marker_tpl % ['END']
-#     end
-#     File.open('/etc/hosts', 'w') do | hostfile |
-#       hostfile_entries.each do | entry |
-#         hostfile.write(entry)
-#       end
-#     end
-#   end
-# end
 
