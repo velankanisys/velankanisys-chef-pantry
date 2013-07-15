@@ -125,11 +125,20 @@ execute "Install CDH4 repo key" do
   not_if {"apt-key list | egrep 'Cloudera Apt Repository'"}
 end
 
-execute "update package index" do
+# execute "update package index" do
+#   command "apt-get update"
+#   ignore_failure true
+#   action :nothing
+# end.run_action(:run)
+
+execute "apt-get-update-periodic" do
   command "apt-get update"
   ignore_failure true
-  action :nothing
-end.run_action(:run)
+  only_if do
+    File.exists?('/var/lib/apt/periodic/update-success-stamp') &&
+    File.mtime('/var/lib/apt/periodic/update-success-stamp') < Time.now - 86400
+  end
+end
 
 
 %w'hadoop-client 

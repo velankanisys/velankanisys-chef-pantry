@@ -38,14 +38,6 @@ remote_file "/tmp/#{spark_dist}.tar.gz" do
   not_if { File.exists?("/tmp/#{spark_dist}.tar.gz") }
 end
 
-# script "Installing Mesos" do
-#   interpreter "bash"
-#   code <<-EOH
-#   rpm -ivh #{mesos_rpm}
-#   EOH
-  
-#   not_if "rpm -qa | egrep 'mesos'"
-# end
 
 script "Installing Scala" do
   interpreter "bash"
