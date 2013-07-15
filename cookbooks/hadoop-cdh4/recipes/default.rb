@@ -30,11 +30,13 @@
 # 2) the ip address on the link specified in hadoop_network on the
 # master-hadoop node
 # on the master node3) 127.0.0.1 (default)
+include_recipe "java::oracle"
+include_recipe "apt::default"
 
 package "wget" do
   action :install
 end
-include_recipe "java::oracle"
+
 
 #The following has bugs. Commenting out until fix.
 
@@ -95,52 +97,39 @@ end
 
 # Package Repo Installation
 
-# template "/etc/apt/sources.list" do
-#   source "sources.list.erb"
-#   mode 0644
-# end
-
-# template "/etc/apt/sources.list.d/cloudera-cdh4.list" do
-#   source "cloudera-cdh4.list.erb"
-#   mode 0644
-# end
-
-remote_file "/tmp/cdh4-repository_1.0_all.deb" do
-  source "http://archive.cloudera.com/cdh4/one-click-install/precise/amd64/cdh4-repository_1.0_all.deb"
-  not_if { File.exists?("/tmp/cdh4-repository_1.0_all.deb") }
+template "/etc/apt/sources.list" do
+  source "sources.list.erb"
+  mode 0644
 end
 
-
-execute "Install CDH4 repo key" do
-  command "dpkg -i /tmp/cdh4-repository_1.0_all.deb"
-  not_if {"dpkg --list | egrep 'cdh4-repository'"}
+template "/etc/apt/sources.list.d/cloudera-cdh4.list" do
+  source "cloudera-cdh4.list.erb"
+  mode 0644
 end
 
+# remote_file "/tmp/cdh4-repository_1.0_all.deb" do
+#   source "http://archive.cloudera.com/cdh4/one-click-install/precise/amd64/cdh4-repository_1.0_all.deb"
+#   not_if { File.exists?("/tmp/cdh4-repository_1.0_all.deb") }
+# end
 
 
 # execute "Install CDH4 repo key" do
-#   command "curl -s http://archive.cloudera.com/cdh4/ubuntu/precise/amd64/cdh/archive.key | sudo apt-key add -"
-#   not_if {"apt-key list | egrep 'Cloudera Apt Repository'"}
+#   command "dpkg -i /tmp/cdh4-repository_1.0_all.deb"
+#   not_if {"dpkg --list | egrep 'cdh4-repository'"}
 # end
 
-execute "apt-get-update" do
+
+
+execute "Install CDH4 repo key" do
+  command "curl -s http://archive.cloudera.com/cdh4/ubuntu/precise/amd64/cdh/archive.key | sudo apt-key add -"
+  not_if {"apt-key list | egrep 'Cloudera Apt Repository'"}
+end
+
+execute "update package index" do
   command "apt-get update"
   ignore_failure true
   action :nothing
-end
-
-package "update-notifier-common" do
-  notifies :run, resources(:execute => "apt-get-update"), :immediately
-end
-
-execute "apt-get-update-periodic" do
-  command "apt-get update"
-  ignore_failure true
-  only_if do
-   File.exists?('/var/lib/apt/periodic/update-success-stamp') &&
-   File.mtime('/var/lib/apt/periodic/update-success-stamp') < Time.now - 86400
-  end
-end
+end.run_action(:run)
 
 
 %w'hadoop-client 
