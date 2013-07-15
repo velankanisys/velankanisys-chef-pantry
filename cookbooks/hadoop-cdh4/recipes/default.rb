@@ -2,7 +2,7 @@
 # Cookbook Name:: hadoop-cdh4
 # Recipe:: [Install Cloudera CDH4 base compoments]
 #
-# Original Author: https://github.com/rackerlabs/hdp-cookbooks
+# Original Author: https://github.com/rackerlabs/CDH-cookbooks
 # Author: Murali Raju <murali.raju@appliv.com>
 #
 # Copyright 2013, Velankani Information Systems, Inc eng@velankani.net
@@ -70,17 +70,17 @@ configmunge "increase open files limit" do
 end
 
 # Ensure SELinux is disabled
-configmunge "disable selinux" do
-  config_file "/etc/sysconfig/selinux"
-  filter /^SELINUX=/
-  appended_configs ["SELINUX=disabled\n"]
-end
-execute "disable selinux - running" do
-  command "setenforce 0"
-  returns [0, 1]
-end
+# configmunge "disable selinux" do
+#   config_file "/etc/sysconfig/selinux"
+#   filter /^SELINUX=/
+#   appended_configs ["SELINUX=disabled\n"]
+# end
+# execute "disable selinux - running" do
+#   command "setenforce 0"
+#   returns [0, 1]
+# end
 
-# HDP requires a little more than 2x swap to vmm size (we use 
+# CDH requires a little more than 2x swap to vmm size (we use 
 # system memory to be safe. This swap doesn't
 # get used, just reserved during spawning.
 
@@ -241,10 +241,10 @@ end
 #   block do
 #     query = "chef_environment:#{node.chef_environment}"
 #     results, _, _ = Chef::Search::Query.new.search(:node, query)
-#     hdp_nodes = Hash.new
+#     CDH_nodes = Hash.new
 #     results.each do | result |
 #       result[:network][:interfaces][node[:cloudera_cdh][:hadoop_network_interface]].addresses.each do | (k,v) |
-#         hdp_nodes[result.name] = k if v[:family] == 'inet'
+#         CDH_nodes[result.name] = k if v[:family] == 'inet'
 #       end
 #     end
 #     marker_tpl = "# *** %s OF CHEF MANAGED Hosts ***\n"
@@ -263,7 +263,7 @@ end
 #         end
 #       end
 #       hostfile_entries << marker_tpl % ['START']
-#       hdp_nodes.each do | (k,v) |
+#       CDH_nodes.each do | (k,v) |
 #         hostfile_entries << "#{v} #{k}\n"
 #       end
 #       hostfile_entries << marker_tpl % ['END']
