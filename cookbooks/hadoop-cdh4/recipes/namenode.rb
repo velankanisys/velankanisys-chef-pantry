@@ -43,7 +43,3 @@ end
 service "hadoop-hdfs-namenode" do
   action [ :enable, :start ]
 end
-
-
-# mkdir #{node[:cloudera_cdh][:namenode][:dfs_name_dir_root]}
-# chown -R hdfs:hadoop /media/ephemeral0/
