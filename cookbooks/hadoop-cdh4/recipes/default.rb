@@ -117,7 +117,7 @@ end
 
 execute "Install CDH4 repo key" do
   command "curl -s http://archive.cloudera.com/cdh4/ubuntu/precise/amd64/cdh/archive.key | sudo apt-key add -"
-  not_if {'apt-key list | egrep 'Cloudera Apt Repository''}
+  not_if {"apt-key list | egrep 'Cloudera Apt Repository'"}
 end
 
 
