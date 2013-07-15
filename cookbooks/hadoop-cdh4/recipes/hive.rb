@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: hadoop-hdp
+# Cookbook Name:: hadoop-cdh4
 # Recipe:: hive client
 #
 #
