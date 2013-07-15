@@ -124,15 +124,15 @@ end
 #   command "apt-get update"
 # end
 
-execute "apt-get-update" do
-  command "apt-get update"
-  ignore_failure true
-  action :nothing
-end
+# execute "apt-get-update" do
+#   command "apt-get update"
+#   ignore_failure true
+#   action :run
+# end
 
-package "update-notifier-common" do
-  notifies :run, resources(:execute => "apt-get-update"), :immediately
-end
+# package "update-notifier-common" do
+#   notifies :run, resources(:execute => "apt-get-update"), :immediately
+# end
 
 execute "apt-get-update-periodic" do
   command "apt-get update"
@@ -144,8 +144,7 @@ execute "apt-get-update-periodic" do
 end
 
 
-%w'hadoop 
-hadoop-client 
+%w'hadoop-client 
 libhdfs0
 libhdfs0-dev 
 libsnappy1
