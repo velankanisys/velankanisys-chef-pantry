@@ -124,6 +124,16 @@ end
 #   command "apt-get update"
 # end
 
+execute "apt-get-update" do
+  command "apt-get update"
+  ignore_failure true
+  action :nothing
+end
+
+package "update-notifier-common" do
+  notifies :run, resources(:execute => "apt-get-update"), :immediately
+end
+
 execute "apt-get-update-periodic" do
   command "apt-get update"
   ignore_failure true
