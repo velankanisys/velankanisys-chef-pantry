@@ -20,12 +20,12 @@
 <configuration>
   <property>
     <name>fs.default.name</name>
-    <value>hdfs://<%= @node[:hortonworks_hdp][:namenode][:host] %>:<%= @node[:hortonworks_hdp][:namenode][:port] %></value>
+    <value>hdfs://<%= @node[:cloudera_cdh][:namenode][:host] %>:<%= @node[:cloudera_cdh][:namenode][:port] %></value>
   </property>
 
   <property>
      <name>hadoop.tmp.dir</name>
-     <value><%= @node[:hortonworks_hdp][:hdfs][:tmp_dir] %>/${user.name}</value>
+     <value><%= @node[:cloudera_cdh][:hdfs][:tmp_dir] %>/${user.name}</value>
   </property>
 
   <!-- OOZIE proxy user setting -->

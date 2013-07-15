@@ -120,37 +120,47 @@ execute "Install CDH4 repo key" do
   not_if {"apt-key list | egrep 'Cloudera Apt Repository'"}
 end
 
+# execute "Update repo" do
+#   command "apt-get update"
+# end
+
+execute "apt-get-update-periodic" do
+  command "apt-get update"
+  ignore_failure true
+  only_if do
+    File.exists?('/var/lib/apt/periodic/update-success-stamp') &&
+    File.mtime('/var/lib/apt/periodic/update-success-stamp') < Time.now - 86400
+  end
+end
 
 
 %w'hadoop 
-hadoop 
-hadoop-mapreduce
-hadoop-libhdfs 
-snappy 
-snappy-devel 
+hadoop-client 
+libhdfs0
+libhdfs0-dev 
+libsnappy1
+libsnappy-dev 
 openssl 
-hadoop-lzo 
-lzo 
-lzo-devel 
-hadoop-lzo-native'.each do | pack |
+liblzo2-2
+liblzo2-dev'.each do | pack |
   package pack do
     action :install
   end
 end
 
-%w'snappy snappy-devel'.each do | pack |
-  yum_package pack do
-    arch "i686"
-    action :install
-  end
-end
+# %w'snappy snappy-devel'.each do | pack |
+#   yum_package pack do
+#     arch "i686"
+#     action :install
+#   end
+# end
 
-execute "symlink snappy in" do
-  command "ln -sf /usr/lib64/libsnappy.so /usr/lib/hadoop/lib/native/Linux-amd64-64/"
-  not_if do
-    ::File.exist?("/usr/lib/hadoop/lib/native/Linux-amd64-64/libsnappy.so")
-  end
-end
+# execute "symlink snappy in" do
+#   command "ln -sf /usr/lib64/libsnappy.so /usr/lib/hadoop/lib/native/Linux-amd64-64/"
+#   not_if do
+#     ::File.exist?("/usr/lib/hadoop/lib/native/Linux-amd64-64/libsnappy.so")
+#   end
+# end
 
 # Create cache directory
 directory "node[:cloudera_cdh][:namenode][:dfs_name_dir_root]/var/lib/hadoop/cache" do
@@ -169,7 +179,7 @@ directory "/etc/hadoop/conf.chef" do
 end
 
 execute "alternatives configured confdir" do
-  command "alternatives --install /etc/hadoop/conf hadoop-conf /etc/hadoop/conf.chef 90"
+  command "update-alternatives --install /etc/hadoop/conf hadoop-conf /etc/hadoop/conf.chef 90"
   not_if do
     ::File.readlink("/etc/alternatives/hadoop-conf") == "/etc/hadoop/conf.chef"
   end
@@ -230,6 +240,13 @@ template "/etc/hadoop/conf.chef/mapred-site.xml" do
               :jobtracker_ip => $master_node_ip,
               :jobtracker_port => node[:cloudera_cdh][:jobtracker][:port]
             })
+end
+
+template "/etc/hadoop/conf.chef/hadoop-env.sh" do
+  source "hadoop-env.sh.erb"
+  owner "root"
+  group "root"
+  mode 0755
 end
 
 

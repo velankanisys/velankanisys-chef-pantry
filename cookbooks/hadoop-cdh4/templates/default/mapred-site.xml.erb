@@ -20,23 +20,23 @@
 <configuration>
   <property>
     <name>mapred.job.tracker</name>
-    <value><%= @node[:hortonworks_hdp][:jobtracker][:host] %>:<%= @node[:hortonworks_hdp][:jobtracker][:port] %></value>
+    <value><%= @node[:cloudera_cdh][:jobtracker][:host] %>:<%= @node[:cloudera_cdh][:jobtracker][:port] %></value>
   </property>
 
   <property>
     <name>mapred.child.java.opts</name>
-    <value><%= @node[:hortonworks_hdp][:mapreduce][:mapred_child_java_opts] %></value>
+    <value><%= @node[:cloudera_cdh][:mapreduce][:mapred_child_java_opts] %></value>
     <description>No description</description>
   </property>
    <property>
       <name>mapred.map.child.java.opts</name>
-         <value><%= @node[:hortonworks_hdp][:mapreduce][:mapred_map_child_java_opts] %></value>
+         <value><%= @node[:cloudera_cdh][:mapreduce][:mapred_map_child_java_opts] %></value>
           <description>No description</description>
    </property>
               
  <property>
     <name>mapred.reduce.child.java.opts</name>
-       <value><%= @node[:hortonworks_hdp][:mapreduce][:mapred_reduce_child_java_opts] %></value>
+       <value><%= @node[:cloudera_cdh][:mapreduce][:mapred_reduce_child_java_opts] %></value>
        <description>No description</description>
   </property>
 
