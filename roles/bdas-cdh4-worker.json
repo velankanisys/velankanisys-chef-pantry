@@ -1,0 +1,13 @@
+{
+    "name": "bdas-cdh4-worker",
+    "chef_type": "role",
+    "description": "BDAS CDH4 worker node",
+    "run_list": [
+    	"recipe[bdas::default]",
+        "recipe[bdas::spark_worker]"
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}
