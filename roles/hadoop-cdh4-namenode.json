@@ -1,0 +1,13 @@
+{
+    "name": "hadoop-cdh4-namenode",
+    "chef_type": "role",
+    "description": "Hadoop CDH4 Namenode",
+    "run_list": [
+    	"recipe[hadoop-cdh4::default]",
+        "recipe[hadoop-cdh4::namenode]"
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}
