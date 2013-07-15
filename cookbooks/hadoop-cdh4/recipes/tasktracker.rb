@@ -29,10 +29,10 @@ script "Creating Task Tracker Directories and Setting Permissions" do
   interpreter "bash"
   user "root"
   code <<-EOH
-	mkdir -p #{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/mapred/
-	chown -R mapred:hadoop #{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/mapred
+	mkdir -p #{node[:cloudera_cdh][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/mapred/
+	chown -R mapred:hadoop #{node[:cloudera_cdh][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/mapred
   EOH
-  not_if { ::File.exists?("#{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/mapred") }
+  not_if { ::File.exists?("#{node[:cloudera_cdh][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/mapred") }
 end
 
 

@@ -20,8 +20,8 @@
 # limitations under the License.
 
 
-hive_server_lib_path = node[:hortonworks_hdp][:hiveserver][:lib]
-mysql_connector_java = node[:hortonworks_hdp][:mysql][:jdbc_connector]
+hive_server_lib_path = node[:cloudera_cdh][:hiveserver][:lib]
+mysql_connector_java = node[:cloudera_cdh][:mysql][:jdbc_connector]
 
 package "hive" do
   action :install
@@ -47,7 +47,7 @@ template "/etc/hive/conf/hive-env.sh" do
   mode 0755
   # variables({
   #             :jobtracker_ip => $master_node_ip,
-  #             :jobtracker_port => node[:hortonworks_hdp][:jobtracker][:port]
+  #             :jobtracker_port => node[:cloudera_cdh][:jobtracker][:port]
   #           })
 end
 

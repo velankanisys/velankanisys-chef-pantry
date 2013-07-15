@@ -28,16 +28,16 @@ script "Setting Permissions for NameNode format" do
   interpreter "bash"
   user "root"
   code <<-EOH
-  chown -R hdfs:hadoop #{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}
+  chown -R hdfs:hadoop #{node[:cloudera_cdh][:namenode][:dfs_name_dir_root]}
   EOH
 end
 
 
 execute "Namenode format" do
-	#command "chown -R hdfs  #{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/*"
+	#command "chown -R hdfs  #{node[:cloudera_cdh][:namenode][:dfs_name_dir_root]}/*"
   command "su - hdfs -c '/usr/bin/hdfs namenode -format'"
   #ignore_failure true
-  not_if { ::File.exists?("#{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hadoop/dfs/name") }
+  not_if { ::File.exists?("#{node[:cloudera_cdh][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hadoop/dfs/name") }
 end
 
 service "hadoop-hdfs-namenode" do
@@ -45,5 +45,5 @@ service "hadoop-hdfs-namenode" do
 end
 
 
-# mkdir #{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}
+# mkdir #{node[:cloudera_cdh][:namenode][:dfs_name_dir_root]}
 # chown -R hdfs:hadoop /media/ephemeral0/

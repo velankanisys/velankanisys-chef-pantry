@@ -27,8 +27,8 @@
 include_recipe "mysql::server"
 include_recipe "database::mysql"
 
-hive_server_lib_path = node[:hortonworks_hdp][:hiveserver][:lib]
-mysql_connector_java = node[:hortonworks_hdp][:mysql][:jdbc_connector]
+hive_server_lib_path = node[:cloudera_cdh][:hiveserver][:lib]
+mysql_connector_java = node[:cloudera_cdh][:mysql][:jdbc_connector]
 
 package "upstart"
 
@@ -48,7 +48,7 @@ template "/etc/hive/conf/hive-site.xml" do
   mode 0755
   # variables({
   #             :jobtracker_ip => $master_node_ip,
-  #             :jobtracker_port => node[:hortonworks_hdp][:jobtracker][:port]
+  #             :jobtracker_port => node[:cloudera_cdh][:jobtracker][:port]
   #           })
 end
 
@@ -60,7 +60,7 @@ template "/etc/hive/conf/hive-env.sh" do
   mode 0755
   # variables({
   #             :jobtracker_ip => $master_node_ip,
-  #             :jobtracker_port => node[:hortonworks_hdp][:jobtracker][:port]
+  #             :jobtracker_port => node[:cloudera_cdh][:jobtracker][:port]
   #           })
 end
 
@@ -72,7 +72,7 @@ template "/usr/local/bin/hiveserver2-metastore.sh" do
   mode 0755
   # variables({
   #             :jobtracker_ip => $master_node_ip,
-  #             :jobtracker_port => node[:hortonworks_hdp][:jobtracker][:port]
+  #             :jobtracker_port => node[:cloudera_cdh][:jobtracker][:port]
   #           })
 end
 
@@ -90,11 +90,11 @@ script "Creating HiveServer Directories and Setting Permissions" do
   interpreter "bash"
   user "root"
   code <<-EOH
-  mkdir -p #{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hive
-  chown -R hive:hadoop #{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hive
+  mkdir -p #{node[:cloudera_cdh][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hive
+  chown -R hive:hadoop #{node[:cloudera_cdh][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hive
   chown -R hive:hive /var/lib/hive/
   EOH
-  not_if { ::File.exists?("#{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hive") }
+  not_if { ::File.exists?("#{node[:cloudera_cdh][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hive") }
 end
 
 
