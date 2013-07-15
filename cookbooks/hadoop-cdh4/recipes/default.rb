@@ -151,26 +151,13 @@ libhdfs0-dev
 libsnappy1
 libsnappy-dev 
 openssl 
-liblzo2-2
-liblzo2-dev'.each do | pack |
+hadoop-lzo-cdh4-mr1
+hadoop-lzo-cdh4'.each do | pack |
   package pack do
     action :install
   end
 end
 
-# %w'snappy snappy-devel'.each do | pack |
-#   yum_package pack do
-#     arch "i686"
-#     action :install
-#   end
-# end
-
-# execute "symlink snappy in" do
-#   command "ln -sf /usr/lib64/libsnappy.so /usr/lib/hadoop/lib/native/Linux-amd64-64/"
-#   not_if do
-#     ::File.exist?("/usr/lib/hadoop/lib/native/Linux-amd64-64/libsnappy.so")
-#   end
-# end
 
 # Create cache directory
 directory "node[:cloudera_cdh][:namenode][:dfs_name_dir_root]/var/lib/hadoop/cache" do
