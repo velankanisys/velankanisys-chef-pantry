@@ -24,9 +24,10 @@ include_recipe "java::oracle"
 mesos_rpm = node[:bdas][:mesos][:wget_path]
 scala_source_path = node[:bdas][:scala][:wget_path]
 spark_source_path = node[:bdas][:spark][:wget_path]
+shark_source_path = node[:bdas][:shark][:wget_path]
 scala_dist = node[:bdas][:scala][:dist]
 spark_dist = node[:bdas][:spark][:dist]
-
+shark_dist = node[:bdas][:shark][:dist]
 
 remote_file "/tmp/#{scala_dist}.tar.gz" do
   source "#{scala_source_path}"
@@ -38,6 +39,11 @@ remote_file "/tmp/#{spark_dist}.tar.gz" do
   not_if { File.exists?("/tmp/#{spark_dist}.tar.gz") }
 end
 
+
+remote_file "/tmp/#{shark_dist}.tar.gz" do
+  source "#{shark_source_path}"
+  not_if { File.exists?("/tmp/#{shark_dist}.tar.gz") }
+end
 
 script "Installing Scala" do
   interpreter "bash"
@@ -58,11 +64,25 @@ script "Installing Spark" do
   not_if { File.exists?("/usr/local/#{spark_dist}") }
 end
 
+script "Installing Shark" do
+  interpreter "bash"
+  code <<-EOH
+  tar -zxvf /tmp/#{shark_dist}.tar.gz -C /usr/local/
+  EOH
+  
+  not_if { File.exists?("/usr/local/#{spark_dist}") }
+end
+
 template "/usr/local/spark-0.7.2/conf/spark-env.sh" do
   source "spark-env.sh.erb"
   mode 0644
 end
 
+
+template "/usr/local/shark-0.7.0/conf/shark-env.sh" do
+  source "shark-env.sh.erb"
+  mode 0644
+end
 template "/usr/local/spark-0.7.2/bin/spark-worker.sh" do
   source "spark-worker.sh.erb"
   mode 0755
