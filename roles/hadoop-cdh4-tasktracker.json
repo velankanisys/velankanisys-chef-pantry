@@ -1,0 +1,13 @@
+{
+    "name": "hadoop-cdh4-tasktracker",
+    "chef_type": "role",
+    "description": "Hadoop CDH4 Tasktracker",
+    "run_list": [
+    	"recipe[hadoop-hdp-cdh4::default]",
+        "recipe[hadoop-hdp-cdh4::tasktracker]"
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}

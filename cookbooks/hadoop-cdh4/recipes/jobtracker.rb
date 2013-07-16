@@ -19,11 +19,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-package "hadoop-jobtracker" do
+package "hadoop-0.20-mapreduce-jobtracker" do
   action :install
 end
 
 
-service "hadoop-jobtracker" do
+service "hadoop-0.20-mapreduce-jobtracker" do
   action [ :enable, :start ]
 end

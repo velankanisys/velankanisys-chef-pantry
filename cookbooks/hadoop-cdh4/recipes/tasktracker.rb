@@ -21,7 +21,7 @@
 # mkdir -p /media/ephemeral0/var/lib/hadoop/cache/mapred/
 # chown -R mapred:hadoop /media/ephemeral0/var/lib/hadoop/cache/mapred
 
-package "hadoop-tasktracker" do
+package "hadoop-0.20-mapreduce-tasktracker" do
   action :install
 end
 
@@ -36,6 +36,6 @@ script "Creating Task Tracker Directories and Setting Permissions" do
 end
 
 
-service "hadoop-tasktracker" do
+service "hadoop-0.20-mapreduce-tasktracker" do
   action [ :enable, :start ]
 end

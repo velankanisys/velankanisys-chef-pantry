@@ -1,0 +1,13 @@
+{
+    "name": "hadoop-cdh4-jobtracker",
+    "chef_type": "role",
+    "description": "Hadoop CDH4 Jobtracker",
+    "run_list": [
+        "recipe[hadoop-hdp-cdh4::default]",
+		"recipe[hadoop-hdp-cdh4::jobtracker]"
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}
