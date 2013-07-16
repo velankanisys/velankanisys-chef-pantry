@@ -21,6 +21,7 @@
 
 package "hadoop-0.20-mapreduce-jobtracker" do
   action :install
+  options "--force-yes"
 end
 
 

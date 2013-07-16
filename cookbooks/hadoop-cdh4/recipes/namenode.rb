@@ -21,6 +21,7 @@
 
 package "hadoop-hdfs-namenode" do
   action :install
+  options "--force-yes"
 end
 
 

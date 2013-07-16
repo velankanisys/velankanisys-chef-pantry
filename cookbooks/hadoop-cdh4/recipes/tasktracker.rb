@@ -23,6 +23,7 @@
 
 package "hadoop-0.20-mapreduce-tasktracker" do
   action :install
+  options "--force-yes"
 end
 
 script "Creating Task Tracker Directories and Setting Permissions" do

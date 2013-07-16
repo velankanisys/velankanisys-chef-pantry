@@ -3,8 +3,8 @@
     "chef_type": "role",
     "description": "Hadoop CDH4 Tasktracker",
     "run_list": [
-    	"recipe[hadoop-hdp-cdh4::default]",
-        "recipe[hadoop-hdp-cdh4::tasktracker]"
+    	"recipe[hadoop-cdh4::default]",
+        "recipe[hadoop-cdh4::tasktracker]"
     ],
     "default_attributes": {
     },
