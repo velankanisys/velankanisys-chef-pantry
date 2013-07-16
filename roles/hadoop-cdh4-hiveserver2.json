@@ -1,11 +1,11 @@
 {
-    "name": "hadoop-hiveserver2",
+    "name": "hadoop-cdh4-hiveserver2",
     "chef_type": "role",
     "description": "Hadoop HiveServer2",
     "run_list": [
     	"recipe[mysql::server]",
         "recipe[database::mysql]",
-        "recipe[hadoop-hdp::hiveserver2]"
+        "recipe[hadoop-cdh4::hiveserver2]"
 
     ],
     "default_attributes": {
