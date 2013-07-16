@@ -34,6 +34,7 @@ package "upstart"
 
 package "hive-server2" do
   action :install
+  options "--force-yes"
 end
 
 
