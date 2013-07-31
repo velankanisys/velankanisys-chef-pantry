@@ -28,8 +28,10 @@ script "Setting Permissions for NameNode format" do
   interpreter "bash"
   user "root"
   code <<-EOH
+  mkdir #{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}
   chown -R hdfs:hadoop #{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}
   EOH
+  not_if { ::File.exists?("#{node[:hortonworks_hdp][:namenode][:dfs_name_dir_root]}") }
 end
 
 
