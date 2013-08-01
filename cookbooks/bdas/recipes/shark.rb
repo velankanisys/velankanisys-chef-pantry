@@ -17,18 +17,18 @@
 # limitations under the License.
 #
 
-scala_wget_path = 
-shark_wget_path =  
+# scala_wget_path = 
+# shark_wget_path =  
 
-remote_file "/tmp/scala-2.9.2.tgz" do
-  source "#{scala_wget_path}"
-  not_if { File.exists?("/tmp/scala-2.9.2.tgz") }
-end
+# remote_file "/tmp/scala-2.9.2.tgz" do
+#   source "#{scala_wget_path}"
+#   not_if { File.exists?("/tmp/scala-2.9.2.tgz") }
+# end
 
-remote_file "/tmp/#{dist}-server-amd64.iso" do
-  source "#{shark_wget_path}"
-  not_if { File.exists?("/tmp/#{dist}-server-amd64.iso") }
-end
+# remote_file "/tmp/#{dist}-server-amd64.iso" do
+#   source "#{shark_wget_path}"
+#   not_if { File.exists?("/tmp/#{dist}-server-amd64.iso") }
+# end
 
 
 #sudo mkdir /usr/local/shark
