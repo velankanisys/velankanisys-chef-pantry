@@ -29,13 +29,14 @@ script "Setting Permissions for NameNode format" do
   interpreter "bash"
   user "root"
   code <<-EOH
+  mkdir #{node[:cloudera_cdh][:namenode][:dfs_name_dir_root]}
   chown -R hdfs:hadoop #{node[:cloudera_cdh][:namenode][:dfs_name_dir_root]}
   EOH
+  not_if { ::File.exists?("#{node[:cloudera_cdh][:namenode][:dfs_name_dir_root]}") }
 end
 
 
 execute "Namenode format" do
-	#command "chown -R hdfs  #{node[:cloudera_cdh][:namenode][:dfs_name_dir_root]}/*"
   command "su - hdfs -c '/usr/bin/hdfs namenode -format'"
   #ignore_failure true
   not_if { ::File.exists?("#{node[:cloudera_cdh][:namenode][:dfs_name_dir_root]}/var/lib/hadoop/cache/hadoop/dfs/name") }

@@ -33,10 +33,10 @@
   <property>
      <!-- specify this so that running 'hadoop namenode -format' formats the right dir -->
      <name>dfs.name.dir</name>
-     <value><%= @node[:cloudera_cdh][:namenode][:dfs_name_dir] %></value>
+     <value><%= @node[:cloudera_cdh][:namenode][:dfs_name_dir_root] %><%= @node[:cloudera_cdh][:namenode][:dfs_name_dir] %></value>
   </property>
   <property>
       <name>dfs.data.dir</name>
-      <value><%= @node[:cloudera_cdh][:datanode][:dfs_data_dir] %></value>
+      <value><%= @node[:cloudera_cdh][:namenode][:dfs_name_dir_root] %><%= @node[:cloudera_cdh][:datanode][:dfs_data_dir] %></value>
   </property>
 </configuration>

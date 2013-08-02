@@ -1,19 +1,19 @@
 default[:cloudera_cdh][:manage_all_config_files] = false
 default[:cloudera_cdh][:nofiles] = 32768
-default[:cloudera_cdh][:swapfile_location] = "/mnt/swapfile"
+default[:cloudera_cdh][:swapfile_location] = "/swapfile"
 
 
 default[:cloudera_cdh][:namenode][:host] = "hadoop-cdh4-node1"
 default[:cloudera_cdh][:namenode][:port] = "8020"
 default[:cloudera_cdh][:namenode][:safemode_min_datanodes] = 3
 default[:cloudera_cdh][:namenode][:num_dfs_replicas] = 3
-default[:cloudera_cdh][:namenode][:dfs_name_dir] = "/mnt/var/lib/hadoop/cache/hadoop/dfs/name" 
-default[:cloudera_cdh][:namenode][:hadoop_tmp_dir] = "/mnt/var/lib/hadoop/cache/${user.name}"
-default[:cloudera_cdh][:namenode][:dfs_name_dir_root] = "/mnt"
+default[:cloudera_cdh][:namenode][:dfs_name_dir] = "/hadoop/var/lib/hadoop/cache/hadoop/dfs/name" 
+default[:cloudera_cdh][:namenode][:hadoop_tmp_dir] = "/hadoop/var/lib/hadoop/cache/${user.name}"
+default[:cloudera_cdh][:namenode][:dfs_name_dir_root] = "/hadoop"
 
 #DataNode
 
-default[:cloudera_cdh][:datanode][:dfs_data_dir] = "/mnt/var/lib/hadoop/cache/hdfs/dfs/data"  
+default[:cloudera_cdh][:datanode][:dfs_data_dir] = "/hadoop/var/lib/hadoop/cache/hdfs/dfs/data"  
 
 #Map Reduce
 default[:cloudera_cdh][:jobtracker][:host] = "hadoop-cdh4-node2"
