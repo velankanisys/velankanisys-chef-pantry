@@ -70,7 +70,7 @@ script "Installing Shark" do
   tar -zxvf /usr/local/#{shark_dist}.tar.gz -C /usr/local/
   EOH
   
-  not_if { File.exists?("/usr/local/#{spark_dist}") }
+  not_if { File.exists?("/usr/local/#{shark_dist}") }
 end
 
 template "/usr/local/spark-0.7.2/conf/spark-env.sh" do
