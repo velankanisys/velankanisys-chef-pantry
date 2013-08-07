@@ -29,26 +29,26 @@ scala_dist = node[:bdas][:scala][:dist]
 spark_dist = node[:bdas][:spark][:dist]
 shark_dist = node[:bdas][:shark][:dist]
 
-remote_file "/tmp/#{scala_dist}.tar.gz" do
+remote_file "/usr/local/#{scala_dist}.tar.gz" do
   source "#{scala_source_path}"
-  not_if { File.exists?("/tmp/#{scala_dist}.tar.gz") }
+  not_if { File.exists?("/usr/local/#{scala_dist}.tar.gz") }
 end
 
-remote_file "/tmp/#{spark_dist}.tar.gz" do
+remote_file "/usr/local/#{spark_dist}.tar.gz" do
   source "#{spark_source_path}"
-  not_if { File.exists?("/tmp/#{spark_dist}.tar.gz") }
+  not_if { File.exists?("/usr/local/#{spark_dist}.tar.gz") }
 end
 
 
-remote_file "/tmp/#{shark_dist}.tar.gz" do
+remote_file "/usr/local/#{shark_dist}.tar.gz" do
   source "#{shark_source_path}"
-  not_if { File.exists?("/tmp/#{shark_dist}.tar.gz") }
+  not_if { File.exists?("/usr/local/#{shark_dist}.tar.gz") }
 end
 
 script "Installing Scala" do
   interpreter "bash"
   code <<-EOH
-  tar -zxvf /tmp/#{scala_dist}.tar.gz -C /usr/local/
+  tar -zxvf /usr/local/#{scala_dist}.tar.gz -C /usr/local/
   EOH
   
   not_if { File.exists?("/usr/local/#{scala_dist}") }
@@ -58,7 +58,7 @@ end
 script "Installing Spark" do
   interpreter "bash"
   code <<-EOH
-  tar -zxvf /tmp/#{spark_dist}.tar.gz -C /usr/local/
+  tar -zxvf /usr/local/#{spark_dist}.tar.gz -C /usr/local/
   EOH
   
   not_if { File.exists?("/usr/local/#{spark_dist}") }
@@ -67,7 +67,7 @@ end
 script "Installing Shark" do
   interpreter "bash"
   code <<-EOH
-  tar -zxvf /tmp/#{shark_dist}.tar.gz -C /usr/local/
+  tar -zxvf /usr/local/#{shark_dist}.tar.gz -C /usr/local/
   EOH
   
   not_if { File.exists?("/usr/local/#{spark_dist}") }
