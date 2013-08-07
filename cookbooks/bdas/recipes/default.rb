@@ -60,7 +60,6 @@ script "Installing Spark" do
   code <<-EOH
   tar -zxvf /usr/local/#{spark_dist}.tar.gz -C /usr/local/
   EOH
-  
   not_if { File.exists?("/usr/local/#{spark_dist}") }
 end
 
@@ -69,7 +68,6 @@ script "Installing Shark" do
   code <<-EOH
   tar -zxvf /usr/local/#{shark_dist}.tar.gz -C /usr/local/
   EOH
-  
   not_if { File.exists?("/usr/local/#{shark_dist}") }
 end
 
