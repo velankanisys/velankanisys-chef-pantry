@@ -81,14 +81,24 @@ script "Setting up environment" do
   chown -R oozie:oozie /var/lib/oozie
   sudo -u hdfs hadoop fs -mkdir /user/oozie
   sudo -u hdfs hadoop fs -chown oozie:oozie /user/oozie
-  tar xzf /usr/lib/oozie/oozie-sharelib.tar.gz -C /tmp
-  cd /tmp
-  sudo -u oozie hadoop fs -put share /user/oozie/share
   cp /tmp/ext-2.2.zip  /var/lib/oozie
   cd /var/lib/oozie
   unzip ext-2.2.zip
   EOH
+  not_if { "hadoop fs -ls /user | egrep oozie" }
 end
+
+script "Setting up Oozie sharedlib" do
+  interpreter "bash"
+  user "root"
+  code <<-EOH
+  cd /tmp
+  tar -xzvf /usr/lib/oozie/oozie-sharelib.tar.gz 
+  sudo -u oozie hadoop fs -put share /user/oozie/share
+  EOH
+  not_if { "hadoop fs -ls /user/oozie | egrep share" }
+end
+
 
 #TODO
 # script "Create DB schema" do
