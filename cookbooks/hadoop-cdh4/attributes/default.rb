@@ -47,11 +47,10 @@ default[:cloudera_cdh][:flume_source][:wget_path]= "http://files.cloudera.com/sa
 
 
 #oozie
+default[:cloudera_cdh][:oozie][:lib] = "/var/lib/oozie"
 default[:cloudera_cdh][:mysql][:ooziedb] = "ooziedb"
 default[:cloudera_cdh][:mysql][:ooziedb_user_name] = "ooziedb_user"
 default[:cloudera_cdh][:mysql][:oozieb_user_password] = "b332a50ecec5bf5970328be5268e4d36"
-
-
 
 
 

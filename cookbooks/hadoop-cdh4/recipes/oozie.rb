@@ -20,6 +20,9 @@
 
 include_recipe "database::mysql"
 
+oozie_lib_path = node[:cloudera_cdh][:oozie][:lib]
+mysql_connector_java = node[:cloudera_cdh][:mysql][:jdbc_connector]
+
 %w'oozie
 oozie-client'.each do | pack |
   package pack do
@@ -27,8 +30,6 @@ oozie-client'.each do | pack |
     options "--force-yes"
   end
 end
-
-
 
 
 # create a mysql database
@@ -60,4 +61,22 @@ mysql_database_user "#{node['cloudera_cdh']['mysql']['ooziedb_user_name']}" do
   database_name "#{node['cloudera_cdh']['mysql']['ooziedb']}"
   privileges [:all]
   action :grant
+end
+
+remote_file "#{oozie_lib_path}/mysql-connector-java-5.1.9.jar" do
+  source "#{mysql_connector_java}"
+  not_if { File.exists?("#{oozie_lib_path}/mysql-connector-java-5.1.9.jar") }
+end
+
+script "Setting Permissions" do
+  interpreter "bash"
+  user "root"
+  code <<-EOH
+  chmod -R 777 /var/lib/oozie
+  chown -R oozie:oozie /var/lib/oozie
+  EOH
+end
+
+service "oozie" do
+  action :start
 end
