@@ -67,12 +67,14 @@ remote_file "#{oozie_lib_path}/mysql-connector-java-5.1.9.jar" do
   not_if { File.exists?("#{oozie_lib_path}/mysql-connector-java-5.1.9.jar") }
 end
 
-script "Setting Permissions" do
+script "Creating directories and setting permissions" do
   interpreter "bash"
   user "root"
   code <<-EOH
   chmod -R 777 /var/lib/oozie
   chown -R oozie:oozie /var/lib/oozie
+  sudo -u hdfs hadoop fs -mkdir /user/oozie
+  sudo -u hdfs hadoop fs -chown oozie:oozie /user/oozie
   EOH
 end
 
