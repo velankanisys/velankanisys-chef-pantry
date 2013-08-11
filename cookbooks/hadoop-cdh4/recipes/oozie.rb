@@ -87,6 +87,5 @@ end
 # end
 
 service "oozie" do
-  action :enable
-  action :start
+  action :restart
 end
