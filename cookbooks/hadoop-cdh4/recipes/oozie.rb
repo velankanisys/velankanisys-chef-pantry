@@ -54,7 +54,6 @@ mysql_database_user "#{node['cloudera_cdh']['mysql']['ooziedb_user_name']}" do
 end
 
 # Grant privileges to oozie_db
-
 mysql_database_user "#{node['cloudera_cdh']['mysql']['ooziedb_user_name']}" do
   connection mysql_connection_info
   password "#{node['cloudera_cdh']['mysql']['ooziedb_user_password']}"
