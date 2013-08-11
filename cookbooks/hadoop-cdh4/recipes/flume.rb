@@ -30,3 +30,10 @@ remote_file "/usr/lib/flume-ng/flume-sources-1.0-SNAPSHOT.jar" do
   source "http://files.cloudera.com/samples/flume-sources-1.0-SNAPSHOT.jar"
   not_if { File.exists?("/usr/lib/flume-ng/lib/flume-sources-1.0-SNAPSHOT.jar") }
 end
+
+template "/etc/flume-ng/conf/flume-env.sh" do
+  source "flume-env.sh.erb"
+  owner "root"
+  group "root"
+  mode 0755
+end
