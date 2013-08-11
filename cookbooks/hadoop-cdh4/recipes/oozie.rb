@@ -23,7 +23,8 @@ include_recipe "database::mysql"
 oozie_lib_path = node[:cloudera_cdh][:oozie][:lib]
 mysql_connector_java = node[:cloudera_cdh][:mysql][:jdbc_connector]
 
-%w'oozie
+%w'unzip
+oozie
 oozie-client'.each do | pack |
   package pack do
     action :install
@@ -82,7 +83,7 @@ script "Setting up environment" do
   sudo -u hdfs hadoop fs -chown oozie:oozie /user/oozie
   cp /tmp/ext-2.2.zip  /var/lib/oozie
   cd /var/lib/oozie
-  gzip -d ext-2.2.zip
+  unzip ext-2.2.zip
   EOH
 end
 
