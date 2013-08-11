@@ -44,3 +44,20 @@ template "/etc/default/flume-ng-agent" do
   group "root"
   mode 0755
 end
+
+template "/etc/flume-ng/conf/flume.conf" do
+  source "flume.conf.erb"
+  owner "root"
+  group "root"
+  mode 0755
+end
+
+script "Setting up environment" do
+  interpreter "bash"
+  user "root"
+  code <<-EOH
+  sudo -u hdfs hadoop fs -mkdir /user/flume
+  sudo -u hdfs hadoop fs -chown flume:flume /user/flume
+  EOH
+  not_if { "hadoop fs -ls /user | egrep flume" }
+end
