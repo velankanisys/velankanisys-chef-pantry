@@ -77,6 +77,16 @@ script "Setting Permissions" do
   EOH
 end
 
+# script "Create DB schema" do
+#   interpreter "bash"
+#   user "root"
+#   code <<-EOH
+#   sudo -u oozie /usr/lib/oozie/bin/ooziedb.sh create -run
+#   EOH
+#   not_if("/usr/bin/mysql -uroot -p #{node['mysql']['server_root_password']} -e'show databases' 
+#   	| grep #{node['cloudera_cdh']['mysql']['ooziedb']}")
+# end
+
 service "oozie" do
   action :start
 end
