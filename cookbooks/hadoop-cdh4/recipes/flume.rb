@@ -26,7 +26,7 @@ flume-ng-agent'.each do | pack |
   end
 end
 
-remote_file "/usr/lib/flume-ng/flume-sources-1.0-SNAPSHOT.jar" do
+remote_file "/usr/lib/flume-ng/lib/flume-sources-1.0-SNAPSHOT.jar" do
   source "http://files.cloudera.com/samples/flume-sources-1.0-SNAPSHOT.jar"
   not_if { File.exists?("/usr/lib/flume-ng/lib/flume-sources-1.0-SNAPSHOT.jar") }
 end
