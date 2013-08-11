@@ -73,6 +73,7 @@ script "Setting Permissions" do
   code <<-EOH
   chmod -R 777 /var/lib/oozie
   chown -R oozie:oozie /var/lib/oozie
+  sudo -u oozie /usr/lib/oozie/bin/ooziedb.sh create -run
   EOH
 end
 
