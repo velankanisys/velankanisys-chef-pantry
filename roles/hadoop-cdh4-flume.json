@@ -1,0 +1,12 @@
+{
+    "name": "hadoop-cdh4-flume",
+    "chef_type": "role",
+    "description": "Hadoop CDH4 Flume Node",
+    "run_list": [
+        "recipe[hadoop-cdh4::flume]"
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}

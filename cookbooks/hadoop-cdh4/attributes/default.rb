@@ -39,3 +39,19 @@ default[:cloudera_cdh][:mysql][:jdbc_connector] = "http://repo1.maven.org/maven2
 default[:cloudera_cdh][:mysql][:hivedb] = "hivedb"
 default[:cloudera_cdh][:mysql][:hivedb_user_name] = "hivedb_user"
 default[:cloudera_cdh][:mysql][:hivedb_user_password] = "b332a50ecec5bf5970328be5268e4d36"
+default[:cloudera_cdh][:hiveserver][:serdes_wget_path] = "http://files.cloudera.com/samples/hive-serdes-1.0-SNAPSHOT.jar"
+
+
+#Flume
+default[:cloudera_cdh][:flume_source][:wget_path]= "http://files.cloudera.com/samples/flume-sources-1.0-SNAPSHOT.jar"
+
+
+#oozie
+default[:cloudera_cdh][:mysql][:ooziedb] = "ooziedb"
+default[:cloudera_cdh][:mysql][:ooziedb_user_name] = "ooziedb_user"
+default[:cloudera_cdh][:mysql][:oozieb_user_password] = "b332a50ecec5bf5970328be5268e4d36"
+
+
+
+
+

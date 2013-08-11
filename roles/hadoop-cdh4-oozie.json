@@ -1,0 +1,12 @@
+{
+    "name": "hadoop-cdh4-oozie",
+    "chef_type": "role",
+    "description": "Hadoop CDH4 oozie",
+    "run_list": [
+        "recipe[hadoop-cdh4::oozie]"
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}
