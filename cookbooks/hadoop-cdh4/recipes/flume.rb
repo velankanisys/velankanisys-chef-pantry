@@ -37,3 +37,10 @@ template "/etc/flume-ng/conf/flume-env.sh" do
   group "root"
   mode 0755
 end
+
+template "/etc/default/flume-ng-agent" do
+  source "flume-ng-agent.erb"
+  owner "root"
+  group "root"
+  mode 0755
+end
