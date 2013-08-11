@@ -67,7 +67,12 @@ remote_file "#{oozie_lib_path}/mysql-connector-java-5.1.9.jar" do
   not_if { File.exists?("#{oozie_lib_path}/mysql-connector-java-5.1.9.jar") }
 end
 
-script "Creating directories and setting permissions" do
+remote_file "/tmp/ext-2.2.zip" do
+  source "http://archive.cloudera.com/gplextras/misc/ext-2.2.zip"
+  not_if { File.exists?("/tmp/ext-2.2.zip") }
+end
+
+script "Setting up environment" do
   interpreter "bash"
   user "root"
   code <<-EOH
@@ -75,9 +80,13 @@ script "Creating directories and setting permissions" do
   chown -R oozie:oozie /var/lib/oozie
   sudo -u hdfs hadoop fs -mkdir /user/oozie
   sudo -u hdfs hadoop fs -chown oozie:oozie /user/oozie
+  cp /tmp/ext-2.2.zip  /var/lib/oozie
+  cd /var/lib/oozie
+  gzip -d ext-2.2.zip
   EOH
 end
 
+#TODO
 # script "Create DB schema" do
 #   interpreter "bash"
 #   user "root"
@@ -89,5 +98,5 @@ end
 # end
 
 service "oozie" do
-  action [ :enable, :start ]
+  action [ :enable, :restart ]
 end
