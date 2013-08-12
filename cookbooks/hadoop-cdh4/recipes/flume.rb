@@ -58,6 +58,11 @@ script "Setting up environment" do
   code <<-EOH
   sudo -u hdfs hadoop fs -mkdir /user/flume
   sudo -u hdfs hadoop fs -chown flume:flume /user/flume
+  sudo -u hdfs hadoop fs -chmod -R 770 /user/flume
   EOH
   not_if { "hadoop fs -ls /user | egrep flume" }
+end
+
+service "flume-ng-agent" do
+  action [ :enable, :restart ]
 end
