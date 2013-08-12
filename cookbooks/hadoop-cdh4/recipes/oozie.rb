@@ -111,6 +111,21 @@ end
 #   	| grep #{node['cloudera_cdh']['mysql']['ooziedb']}")
 # end
 
+script "Creating and copying workflows" do
+  interpreter "bash"
+  user "root"
+  code <<-EOH
+  cd /root
+  mkdir -p oozie-workflows/lib
+  cp /usr/lib/hive/lib/hive-serdes-1.0-SNAPSHOT.jar oozie-workflows/lib
+  cp /var/lib/oozie//var/lib/oozie/mysql-connector-*.jar oozie-workflows/lib
+  cp /etc/hive/conf/hive-site.xml oozie-workflows
+  chown root:root oozie-workflows/hive-site.xml
+  hadoop fs -put oozie-workflows /user/root/oozie-workflows
+  EOH
+  not_if { "hadoop fs -ls /user/root | egrep oozie-workflows" }
+end
+
 service "oozie" do
   action [ :enable, :restart ]
 end
