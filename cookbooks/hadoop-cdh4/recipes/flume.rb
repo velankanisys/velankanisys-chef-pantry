@@ -66,3 +66,6 @@ end
 service "flume-ng-agent" do
   action [ :enable, :restart ]
 end
+
+#Alternative start
+#flume-ng agent --conf-file /etc/flume-ng/conf/flume.conf --name TwitterAgent > flume_twitteragent.log &
