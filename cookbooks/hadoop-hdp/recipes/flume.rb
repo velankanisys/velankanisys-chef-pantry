@@ -73,6 +73,14 @@ template "flume" do
   notifies :start, "service[flume]"
 end
 
+template "start-flume.sh" do
+  path "/usr/local/bin/flume-oozie.sh"
+  source "start-flume.sh.erb"
+  owner "root"
+  group "root"
+  mode "0755"
+end
+
 service "flume" do
     provider Chef::Provider::Service::Upstart
     supports :status => true, :restart => true
