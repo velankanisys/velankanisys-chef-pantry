@@ -1,10 +1,10 @@
-# /etc/init/oozie-server.conf
-description 'Oozie Server startup'
+# /etc/init/flume.conf
+description 'Flume startup'
 author 'Murali Raju'
-env NAME=OozieServer
-env LOG_FILE=/var/log/oozie-server.log
-env USER=oozie
-env SCRIPT_FILE=/usr/local/bin/start-oozie.sh
+env NAME=FlumeNode
+env LOG_FILE=/var/log/flume-node.log
+env USER=flume
+env SCRIPT_FILE=/usr/local/bin/start-flume.sh
 start on runlevel [2345] stop on runlevel [016]
 # Respawn in case of a crash, with default parameters
 # respawn
