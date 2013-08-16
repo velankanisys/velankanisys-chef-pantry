@@ -25,7 +25,8 @@ mysql_connector_java = node[:hortonworks_hdp][:mysql][:jdbc_connector]
 
 %w'unzip
 oozie
-oozie-client'.each do | pack |
+oozie-client
+extjs'.each do | pack |
   package pack do
     action :install
     #options "--force-yes"
@@ -68,10 +69,6 @@ remote_file "#{oozie_lib_path}/mysql-connector-java-5.1.9.jar" do
   not_if { File.exists?("#{oozie_lib_path}/mysql-connector-java-5.1.9.jar") }
 end
 
-remote_file "/tmp/ext-2.2.zip" do
-  source "http://archive.cloudera.com/gplextras/misc/ext-2.2.zip"
-  not_if { File.exists?("/tmp/ext-2.2.zip") }
-end
 
 script "Setting up environment" do
   interpreter "bash"
@@ -81,9 +78,8 @@ script "Setting up environment" do
   chown -R oozie:oozie /var/lib/oozie
   sudo -u hdfs hadoop fs -mkdir /user/oozie
   sudo -u hdfs hadoop fs -chown oozie:oozie /user/oozie
-  cp /tmp/ext-2.2.zip  /var/lib/oozie
-  cd /var/lib/oozie
-  unzip ext-2.2.zip
+  /usr/lib/oozie/bin/oozie-setup.sh -hadoop 0.20.200 /usr/lib/hadoop -extjs /usr/share/HDP-oozie/ext-2.2.zip
+  /usr/lib/oozie/bin/oozie-setup.sh -hadoop 2.x /usr/lib/hadoop -extjs /usr/share/HDP-oozie/ext-2.2.zip -jars /usr/lib/hadoop/lib/hadoop-lzo-0.5.0.jar 
   EOH
   not_if { "hadoop fs -ls /user | egrep oozie" }
 end
@@ -126,6 +122,36 @@ script "Creating and copying workflows" do
   not_if { "hadoop fs -ls /user/root | egrep oozie-workflows" }
 end
 
-service "oozie" do
-  action [ :enable, :restart ]
+template "start-oozie.sh" do
+  path "/usr/local/bin/start-oozie.sh"
+  source "start-oozie.sh.erb"
+  owner "root"
+  group "root"
+  mode "0755"
 end
+
+template "oozie-site.xml" do
+  path "/etc/oozie/conf/oozie-site.xml"
+  source "oozie-site.xml.erb"
+  owner "root"
+  group "root"
+  mode "0755"
+end
+
+template "oozie-server" do
+  path "/etc/init/oozie-server.conf"
+  source "oozie-init.conf.erb"
+  owner "root"
+  group "root"
+  mode "0755"
+  notifies :enable, "service[oozie-server]"
+  notifies :start, "service[oozie-server]"
+end
+
+service "oozie-server" do
+    provider Chef::Provider::Service::Upstart
+    supports :status => true, :restart => true
+    action [:enable, :start]
+end
+
+ 
