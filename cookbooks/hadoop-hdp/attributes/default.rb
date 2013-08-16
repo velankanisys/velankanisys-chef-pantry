@@ -16,7 +16,6 @@ default[:hortonworks_hdp][:namenode][:dfs_name_dir_root] = ""
 # default[:hortonworks_hdp][:namenode][:dfs_name_dir_root] = "/hadoop"
 
 #DataNode
-
 default[:hortonworks_hdp][:datanode][:dfs_data_dir] = "/media/ephemeral0/var/lib/hadoop/cache/hdfs/dfs/data"  
 #default[:hortonworks_hdp][:datanode][:dfs_data_dir] = "/hadoop/var/lib/hadoop/cache/hdfs/dfs/data"
 
