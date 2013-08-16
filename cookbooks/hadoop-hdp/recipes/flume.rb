@@ -63,9 +63,19 @@ script "Setting up environment" do
   not_if { "hadoop fs -ls /user | egrep flume" }
 end
 
-service "flume-ng-agent" do
-  action [ :enable, :restart ]
+template "flume" do
+  path "/etc/init/flume.conf"
+  source "flume-init.conf.erb"
+  owner "root"
+  group "root"
+  mode "0755"
+  notifies :enable, "service[flume]"
+  notifies :start, "service[flume]"
 end
 
-#Alternative start
-#flume-ng agent --conf-file /etc/flume-ng/conf/flume.conf --name TwitterAgent > flume_twitteragent.log &
+service "flume" do
+    provider Chef::Provider::Service::Upstart
+    supports :status => true, :restart => true
+    action [:enable, :start]
+end
+
