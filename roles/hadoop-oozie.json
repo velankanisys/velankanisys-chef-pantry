@@ -1,0 +1,12 @@
+{
+    "name": "hadoop-oozie",
+    "chef_type": "role",
+    "description": "Hadoop HDP oozie",
+    "run_list": [
+        "recipe[hadoop-hdp::oozie]"
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}

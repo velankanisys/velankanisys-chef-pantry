@@ -44,3 +44,14 @@ default[:hortonworks_hdp][:mysql][:jdbc_connector] = "http://repo1.maven.org/mav
 default[:hortonworks_hdp][:mysql][:hivedb] = "hivedb"
 default[:hortonworks_hdp][:mysql][:hivedb_user_name] = "hivedb_user"
 default[:hortonworks_hdp][:mysql][:hivedb_user_password] = "b332a50ecec5bf5970328be5268e4d36"
+
+
+#Flume
+default[:hortonworks_hdp][:flume_source][:wget_path]= "http://files.cloudera.com/samples/flume-sources-1.0-SNAPSHOT.jar"
+
+
+#oozie
+default[:hortonworks_hdp][:oozie][:lib] = "/var/lib/oozie"
+default[:hortonworks_hdp][:mysql][:ooziedb] = "ooziedb"
+default[:hortonworks_hdp][:mysql][:ooziedb_user_name] = "ooziedb_user"
+default[:hortonworks_hdp][:mysql][:ooziedb_user_password] = "b332a50ecec5bf5970328be5268e4d36"

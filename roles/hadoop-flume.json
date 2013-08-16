@@ -1,0 +1,12 @@
+{
+    "name": "hadoop-flume",
+    "chef_type": "role",
+    "description": "Hadoop HDP Flume Node",
+    "run_list": [
+        "recipe[hadoop-hdp::flume]"
+    ],
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}
