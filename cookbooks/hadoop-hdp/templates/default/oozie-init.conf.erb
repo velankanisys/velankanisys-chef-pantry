@@ -3,7 +3,7 @@ description 'Oozie Server startup'
 author 'Murali Raju'
 env NAME=OozieServer
 env LOG_FILE=/var/log/oozie-server.log
-env USER=root
+env USER=oozie
 env SCRIPT_FILE=/usr/local/bin/start-oozie.sh
 start on runlevel [2345] stop on runlevel [016]
 # Respawn in case of a crash, with default parameters
