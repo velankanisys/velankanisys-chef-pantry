@@ -79,7 +79,9 @@ script "Setting up environment" do
   sudo -u hdfs hadoop fs -mkdir /user/oozie
   sudo -u hdfs hadoop fs -chown oozie:oozie /user/oozie
   /usr/lib/oozie/bin/oozie-setup.sh -hadoop 0.20.200 /usr/lib/hadoop -extjs /usr/share/HDP-oozie/ext-2.2.zip
-  /usr/lib/oozie/bin/oozie-setup.sh -hadoop 2.x /usr/lib/hadoop -extjs /usr/share/HDP-oozie/ext-2.2.zip -jars /usr/lib/hadoop/lib/hadoop-lzo-0.5.0.jar 
+  /usr/lib/oozie/bin/oozie-setup.sh -hadoop 0.20.200 /usr/lib/hadoop -extjs /usr/share/HDP-oozie/ext-2.2.zip -jars /usr/lib/hadoop/lib/hadoop-lzo-0.5.0.jar
+  /usr/lib/oozie/bin/oozie-setup.sh -hadoop 0.20.200 /usr/lib/hadoop -extjs /usr/share/HDP-oozie/ext-2.2.zip -jars /usr/lib/hadoop/lib/hadoop-lzo-0.5.0.jar:/usr/lib/hive/lib/mysql-connector-java-5.1.9.jar
+  ln -sf /etc/hadoop/conf /etc/oozie/conf/hadoop-conf 
   EOH
   not_if { "hadoop fs -ls /user | egrep oozie" }
 end
