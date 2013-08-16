@@ -74,7 +74,7 @@ template "flume" do
 end
 
 template "start-flume.sh" do
-  path "/usr/local/bin/flume-oozie.sh"
+  path "/usr/local/bin/start-flume.sh"
   source "start-flume.sh.erb"
   owner "root"
   group "root"
