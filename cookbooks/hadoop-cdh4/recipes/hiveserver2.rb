@@ -104,7 +104,7 @@ remote_file "#{hive_server_lib_path}/mysql-connector-java-5.1.9.jar" do
   not_if { File.exists?("#{hive_server_lib_path}/mysql-connector-java-5.1.9.jar") }
 end
 
-remote_file "/usr/lib/hive/lib//hive-serdes-1.0-SNAPSHOT.jar" do
+remote_file "/usr/lib/hive/lib/hive-serdes-1.0-SNAPSHOT.jar" do
   source "http://files.cloudera.com/samples/hive-serdes-1.0-SNAPSHOT.jar"
   not_if { File.exists?("/usr/lib/hive/lib/hive-serdes-1.0-SNAPSHOT.jar") }
 end
