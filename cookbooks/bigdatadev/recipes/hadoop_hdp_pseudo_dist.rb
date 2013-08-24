@@ -43,14 +43,14 @@ user node[:bigdatadev][:hadoop][:user] do
 end
 
 
-script "Installing HDP 1.2 pseudo dist" do
+script "Installing HDP 1.3 pseudo dist" do
   interpreter "bash"
   user "#{install_user}"
   code <<-EOH
   echo "root         ALL=(ALL)               NOPASSWD: ALL" >> /etc/sudoers
-  wget -nv http://public-repo-1.hortonworks.com/HDP-1.2.0/repos/centos6/hdp.repo -O /etc/yum.repos.d/hdp.repo
+  wget -nv http://public-repo-1.hortonworks.com/HDP/centos6/1.x/GA/1.3.0.0/hdp.repo -O /etc/yum.repos.d/hdp.repo
   sleep 5
-  echo "Installing HDP 1.2. Please wait..."
+  echo "Installing HDP 1.3. Please wait..."
   sudo yum install hadoop-conf-pseudo.x86_64 -y
   EOH
   
