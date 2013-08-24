@@ -85,7 +85,7 @@ end
 
 # Will be ractored once an LWRP is written!! (sorry for the ugly script hacks)
 
-script "Setting up and starting HDP 1.2 HDFS" do
+script "Setting up and starting HDP 1.3 HDFS" do
   interpreter "bash"
   #user "#{user}"
   code <<-EOH
@@ -104,7 +104,7 @@ script "Setting up and starting HDP 1.2 HDFS" do
   not_if { File.exists?("/hadoop/nn") }
 end
 
-script "Setting up and starting HDP 1.2 MapReduce" do
+script "Setting up and starting HDP 1.3 MapReduce" do
   interpreter "bash"
   #user "#{user}"
   code <<-EOH
