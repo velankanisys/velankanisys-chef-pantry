@@ -26,6 +26,7 @@ require 'chef/mixin/language'
 
 
 include_recipe "java::oracle"
+package "wget"
 
 dist = node[:bigdatadev][:hadoop][:dist]
 path = node[:bigdatadev][:hadoop][:path]
