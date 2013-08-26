@@ -26,7 +26,10 @@ include_recipe "java::oracle"
 dist = node[:bigdatadev][:hadoop][:dist]
 path = node[:bigdatadev][:hadoop][:path]
 java_home = node[:bigdatadev][:hadoop][:java_home]
-data_dir = node[:bigdatadev][:hadoop][:data_dir]
+namenode_name_dir = node[:bigdatadev][:hadoop][:dfs_namenode_name_dir]
+namenode_checkpoint_dir = node[:bigdatadev][:hadoop][:dfs_namenode_checkpoint_dir]
+datanode_data_dir = node[:bigdatadev][:hadoop][:dfs_datanode_data_dir]
+dfs_root = node[:bigdatadev][:hadoop][:dfs_root]
 user = node[:bigdatadev][:hadoop][:user]
 
 user node[:bigdatadev][:hadoop][:user] do
@@ -73,6 +76,10 @@ script "Setting up and starting Cloudera Hadoop CDH4 services" do
   interpreter "bash"
   user "root"
   code <<-EOH
+  mkdir -p #{namenode_name_dir}
+  mkdir -p #{namenode_checkpoint_dir}
+  mkdir -p #{datanode_data_dir}
+  chown -R hdfs:hadoop #{dfs_root}
   sudo -u hdfs hdfs namenode -format
   /etc/init.d/hadoop-hdfs-namenode start
   /etc/init.d/hadoop-hdfs-secondarynamenode start
