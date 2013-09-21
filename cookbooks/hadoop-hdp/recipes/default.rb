@@ -106,17 +106,17 @@ end
 # Package Installation
 
 
-# execute "install hdp 2.0 repo package" do
+# execute "install hdp 2.0 repo" do
 #   command "wget -nv http://s3.amazonaws.com/public-repo-1.hortonworks.com/HDP-2.0.0.2/repos/centos6/hdp.repo -O /etc/yum.repos.d/hdp2.0.repo"
 #   not_if do
 #     ::File.exists?("/etc/yum.repos.d/hdp2.0.repo")
 #   end
 # end
 
-execute "install hdp 1.3 repo package" do
+execute "install hdp 1.3 repo" do
   command "wget -nv http://public-repo-1.hortonworks.com/HDP/centos6/1.x/GA/1.3.0.0/hdp.repo -O /etc/yum.repos.d/hdp.repo"
   not_if do
-    ::File.exists?("/etc/yum.repos.d/hdp2.0.repo")
+    ::File.exists?("/etc/yum.repos.d/hdp.repo")
   end
 end
 
