@@ -10,19 +10,13 @@ default[:hortonworks_hdp][:namenode][:num_dfs_replicas] = 3
 # default[:hortonworks_hdp][:namenode][:dfs_name_dir] = "/media/ephemeral0/var/lib/hadoop/cache/hadoop/dfs/name" 
 # default[:hortonworks_hdp][:namenode][:hadoop_tmp_dir] = "/media/ephemeral0/var/lib/hadoop/cache/${user.name}"
 # default[:hortonworks_hdp][:namenode][:dfs_name_dir_root] = ""
-default[:hortonworks_hdp][:namenode][:dfs_name_dir] = "/mnt/var/lib/hadoop/cache/hadoop/dfs/name" 
-default[:hortonworks_hdp][:namenode][:hadoop_tmp_dir] = "/mnt/var/lib/hadoop/cache/${user.name}"
-default[:hortonworks_hdp][:namenode][:dfs_name_dir_root] = "/mnt"
-
-
-# default[:hortonworks_hdp][:namenode][:dfs_name_dir] = "/var/lib/hadoop/cache/hadoop/dfs/name" 
-# default[:hortonworks_hdp][:namenode][:hadoop_tmp_dir] = "/var/lib/hadoop/cache/${user.name}"
-# default[:hortonworks_hdp][:namenode][:dfs_name_dir_root] = "/hadoop"
+default[:hortonworks_hdp][:namenode][:dfs_name_dir] = "/var/lib/hadoop/cache/hadoop/dfs/name" 
+default[:hortonworks_hdp][:namenode][:hadoop_tmp_dir] = "/var/lib/hadoop/cache/${user.name}"
+default[:hortonworks_hdp][:namenode][:dfs_name_dir_root] = "/mnt/hadoop"
 
 #DataNode
-#default[:hortonworks_hdp][:datanode][:dfs_data_dir] = "/media/ephemeral0/var/lib/hadoop/cache/hdfs/dfs/data"
-default[:hortonworks_hdp][:datanode][:dfs_data_dir] = "/mnt/var/lib/hadoop/cache/hdfs/dfs/data"   
-#default[:hortonworks_hdp][:datanode][:dfs_data_dir] = "/hadoop/var/lib/hadoop/cache/hdfs/dfs/data"
+#default[:hortonworks_hdp][:datanode][:dfs_data_dir] = "/media/ephemeral0/var/lib/hadoop/cache/hdfs/dfs/data"  
+default[:hortonworks_hdp][:datanode][:dfs_data_dir] = "/mnt/hadoop/var/lib/hadoop/cache/hdfs/dfs/data"
 
 #MapReduce
 default[:hortonworks_hdp][:jobtracker][:host] = "hadoop-hdp-node2"
