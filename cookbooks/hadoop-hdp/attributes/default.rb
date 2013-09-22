@@ -12,7 +12,7 @@ default[:hortonworks_hdp][:namenode][:num_dfs_replicas] = 3
 # default[:hortonworks_hdp][:namenode][:dfs_name_dir_root] = ""
 default[:hortonworks_hdp][:namenode][:dfs_name_dir] = "/mnt/var/lib/hadoop/cache/hadoop/dfs/name" 
 default[:hortonworks_hdp][:namenode][:hadoop_tmp_dir] = "/mnt/var/lib/hadoop/cache/${user.name}"
-default[:hortonworks_hdp][:namenode][:dfs_name_dir_root] = ""
+default[:hortonworks_hdp][:namenode][:dfs_name_dir_root] = "/mnt"
 
 
 # default[:hortonworks_hdp][:namenode][:dfs_name_dir] = "/var/lib/hadoop/cache/hadoop/dfs/name" 
