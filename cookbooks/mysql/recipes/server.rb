@@ -93,7 +93,7 @@ end
 node['mysql']['server']['packages'].each do |package_name|
   package package_name do
     action :install
-    options "--force-yes"
+    #options "--force-yes"
     notifies :start, "service[mysql]", :immediately
   end
 end
