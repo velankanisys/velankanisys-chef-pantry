@@ -24,5 +24,5 @@ end
 
 
 service "hadoop-secondarynamenode" do
-  action [ :enable, :start ]
+  action [ :enable, :restart ]
 end
